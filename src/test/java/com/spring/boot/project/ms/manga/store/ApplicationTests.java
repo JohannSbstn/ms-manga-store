@@ -10,4 +10,9 @@ class ApplicationTests {
 	@Test
 	void contextLoads() {
 	}
+    @Test
+    void prueba(){
+        assertTrue(false);
+    }
+
 }
