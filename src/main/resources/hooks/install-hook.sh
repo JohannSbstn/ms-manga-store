@@ -4,7 +4,7 @@
 GIT_HOOK_FILE=".git/hooks/pre-commit"
 
 # Ruta a nuestro script personalizado que queremos añadir
-CUSTOM_HOOK_FILE="src/main/resources/hooks/pre-commit-maven"
+CUSTOM_HOOK_FILE="src/main/resources/hooks/pre-commit"
 
 # Comando que queremos asegurar que exista en el hook de Git
 HOOK_COMMAND="sh ${CUSTOM_HOOK_FILE}"
