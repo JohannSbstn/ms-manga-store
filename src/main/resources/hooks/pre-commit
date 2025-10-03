@@ -1,0 +1,16 @@
+#!/bin/sh
+
+mvn checkstyle:check
+if [ $? -ne 0 ]; then
+  echo "❌ Checkstyle failed. Please fix the errors before committing."
+  exit 1
+fi
+
+mvn clean test
+if [ $? -ne 0 ]; then
+  echo "❌ The tests failed. Fix them before committing."
+  exit 1
+fi
+
+echo "✅ All correct. Commit allowed."
+exit 0
