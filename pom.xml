@@ -123,22 +123,25 @@
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-antrun-plugin</artifactId>
-                <version>3.1.0</version>
+                <artifactId>maven-resources-plugin</artifactId>
                 <executions>
                     <execution>
-                        <id>install-git-hooks</id>
-                        <phase>initialize</phase>
-                        <configuration>
-                            <target>
-                                <copy file="${project.basedir}/src/main/resources/hooks/pre-commit"
-                                      tofile="${project.basedir}/.git/hooks/pre-commit" />
-                                <chmod file="${project.basedir}/.git/hooks/pre-commit" perm="755"/>
-                            </target>
-                        </configuration>
+                        <id>copy-resources</id>
+                        <phase>validate</phase>
                         <goals>
-                            <goal>run</goal>
+                            <goal>copy-resources</goal>
                         </goals>
+                        <configuration>
+                            <outputDirectory>${basedir}/.git/hooks</outputDirectory>
+                            <resources>
+                                <resource>
+                                    <directory>src/main/resources/hooks</directory>
+                                    <includes>
+                                        <include>pre-commit</include>
+                                    </includes>
+                                </resource>
+                            </resources>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>
