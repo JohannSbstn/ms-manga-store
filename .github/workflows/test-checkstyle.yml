@@ -1,0 +1,40 @@
+name: Test & CheckStyle
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Descargar el código
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      # 2. Configurar JDK (puedes ajustar la versión)
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '21'
+
+      # 3. Cache de dependencias Maven
+      - name: Cache Maven packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
+
+      # 4. Ejecutar tests
+      - name: Run Tests
+        run: mvn test --batch-mode
+
+      # 5. Ejecutar Checkstyle
+      - name: Run Checkstyle
+        run: mvn checkstyle:check --batch-mode
