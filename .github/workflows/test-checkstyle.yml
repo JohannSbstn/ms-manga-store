@@ -1,4 +1,4 @@
-name: Test & CheckStyle
+name: Test, CheckStyle & Coverage
 
 on:
   push:
@@ -15,14 +15,14 @@ jobs:
       - name: Checkout source
         uses: actions/checkout@v4
 
-      # 2. Configurar JDK (puedes ajustar la versión)
+      # 2. Configurar JDK
       - name: Set up JDK
         uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
           java-version: '21'
 
-      # 3. Cache de dependencias Maven
+      # 3. Cache Maven
       - name: Cache Maven packages
         uses: actions/cache@v4
         with:
@@ -31,10 +31,17 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-maven-
 
-      # 4. Ejecutar tests
-      - name: Run Tests
-        run: mvn test --batch-mode
-
-      # 5. Ejecutar Checkstyle
+      # 4. Checkstyle (falla rápido si hay errores de estilo)
       - name: Run Checkstyle
         run: mvn checkstyle:check --batch-mode
+
+      # 5. Compilar, ejecutar tests y generar cobertura
+      - name: Build and test with coverage
+        run: mvn clean verify --batch-mode
+
+      # 6. Subir el reporte de cobertura (HTML y/o XML)
+      - name: Upload coverage report
+        uses: actions/upload-artifact@v4
+        with:
+          name: jacoco-report
+          path: target/site/jacoco
