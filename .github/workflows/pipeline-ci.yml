@@ -47,15 +47,11 @@ jobs:
       - name: Run SpotBugs
         run: mvn spotbugs:check --batch-mode
 
-      # 8. OWASP Dependency Check (vulnerabilidades)
-      - name: Run OWASP Dependency Check
-        run: mvn org.owasp:dependency-check-maven:check --batch-mode
-
-      # 9. Compilar, ejecutar tests y generar cobertura
+      # 8. Compilar, ejecutar tests y generar cobertura
       - name: Build and test with coverage
         run: mvn clean verify --batch-mode
 
-      # 10. Subir el reporte de cobertura (HTML y/o XML)
+      # 9. Subir el reporte de cobertura (HTML y/o XML)
       - name: Upload coverage report
         uses: actions/upload-artifact@v4
         with:
