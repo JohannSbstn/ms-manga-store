@@ -1,15 +1,24 @@
 package com.spring.boot.project.ms.manga.store.infrastructure.configuration;
 
 import com.spring.boot.project.ms.manga.store.domain.output.MangaPortOut;
+import com.spring.boot.project.ms.manga.store.domain.output.VolumePortOut;
 import com.spring.boot.project.ms.manga.store.infrastructure.output.jpa.adapter.MangaJpaAdapter;
+import com.spring.boot.project.ms.manga.store.infrastructure.output.jpa.adapter.VolumeJpaAdapter;
+import com.spring.boot.project.ms.manga.store.infrastructure.output.jpa.mapper.MangaEntityMapper;
+import com.spring.boot.project.ms.manga.store.infrastructure.output.jpa.mapper.VolumeEntityMapper;
 import com.spring.boot.project.ms.manga.store.infrastructure.output.jpa.repository.MangaRepository;
+import com.spring.boot.project.ms.manga.store.infrastructure.output.jpa.repository.VolumeRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class AdapterConfiguration {
     @Bean
-    public MangaPortOut mangaPortOut(MangaRepository mangaRepository){
-        return new MangaJpaAdapter(mangaRepository);
+    public VolumePortOut volumePortOut(VolumeRepository volumeRepository, VolumeEntityMapper volumeEntityMapper){
+        return new VolumeJpaAdapter(volumeRepository, volumeEntityMapper);
+    }
+    @Bean
+    public MangaPortOut mangaPortOut(MangaRepository mangaRepository, MangaEntityMapper mangaEntityMapper){
+        return new MangaJpaAdapter(mangaRepository, mangaEntityMapper);
     }
 }

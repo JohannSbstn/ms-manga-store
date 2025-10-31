@@ -1,6 +1,5 @@
 package com.spring.boot.project.ms.manga.store.application.dto.request;
 
-import com.spring.boot.project.ms.manga.store.domain.model.MangaSeries;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
@@ -8,7 +7,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Data
-public class MangaRequestDto {
+public class VolumeRequestDto {
 
     @NotBlank(message = "the isbn can't be empty")
     private String isbn;
@@ -29,6 +28,6 @@ public class MangaRequestDto {
 
     private String language;
 
-    private Long mangaSeriesId;
+    private Long mangaId;
 
 }

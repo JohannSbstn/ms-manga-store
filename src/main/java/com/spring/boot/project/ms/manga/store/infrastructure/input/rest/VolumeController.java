@@ -1,7 +1,7 @@
 package com.spring.boot.project.ms.manga.store.infrastructure.input.rest;
 
-import com.spring.boot.project.ms.manga.store.application.dto.request.MangaRequestDto;
-import com.spring.boot.project.ms.manga.store.application.service.MangaService;
+import com.spring.boot.project.ms.manga.store.application.dto.request.VolumeRequestDto;
+import com.spring.boot.project.ms.manga.store.application.service.VolumeService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -13,14 +13,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/mangas")
-public class MangaController {
+@RequestMapping("/volume")
+public class VolumeController {
 
-    private final MangaService mangaService;
+    private final VolumeService volumeService;
 
     @PostMapping
-    public ResponseEntity<HttpStatus> createManga(@RequestBody @Valid MangaRequestDto mangaRequestDto){
-        mangaService.create(mangaRequestDto);
+    public ResponseEntity<HttpStatus> createVolume(@RequestBody @Valid VolumeRequestDto volumeRequestDto){
+        volumeService.create(volumeRequestDto);
         return ResponseEntity.status(HttpStatus.CREATED)
                 .build();
     }

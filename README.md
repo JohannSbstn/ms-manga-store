@@ -1,6 +1,6 @@
 # MangaStore API
 
-A secure and robust backend service that powers a full-featured online manga retail platform, complete with user authentication, product management, and order processing.
+A secure and robust backend service that powers a full-featured online volume retail platform, complete with user authentication, product management, and order processing.
 
 ## 🏗️ Architecture
 
@@ -35,7 +35,7 @@ The project follows Clean Architecture principles with the following layers:
 ```
 src/
 ├── main/
-│   ├── java/com/spring/boot/project/ms/manga/store
+│   ├── java/com/spring/boot/project/ms/volume/store
 │   │   ├── domain/
 │   │   │   └── model/           # Domain entities
 │   │   ├── application/
@@ -59,7 +59,7 @@ src/
 │       ├── application-test.yml  # Test Setup
 │       └── data.sql              # Test data
 └── test/
-    └── java/com/spring/boot/project/ms/manga/store
+    └── java/com/spring/boot/project/ms/volume/store
         ├── application/service/  # Test services
         └── infrastructure/web/controller/  # Test controllers
 ```
