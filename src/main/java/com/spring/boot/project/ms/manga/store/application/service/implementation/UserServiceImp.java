@@ -7,6 +7,7 @@ import com.spring.boot.project.ms.manga.store.domain.input.UserPortIn;
 import com.spring.boot.project.ms.manga.store.domain.model.Role;
 import com.spring.boot.project.ms.manga.store.domain.model.User;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.EnumSet;
@@ -14,36 +15,32 @@ import java.util.EnumSet;
 @Service
 @RequiredArgsConstructor
 public class UserServiceImp implements UserService {
+
     private final UserPortIn userPortIn;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public void createUser(UserRequestDto userRequestDto) {
-        if (!userRequestDto.getPassword().equals(userRequestDto.getConfirmPassword())) {
-            throw new PasswordNotMatchException();
-        }
-        User user = User.builder()
-                .email(userRequestDto.getEmail())
-                .password(userRequestDto.getPassword())
-                .name(userRequestDto.getName())
-                .lastname(userRequestDto.getLastname())
-                .active(true)
-                .roles(EnumSet.of(Role.USER))
-                .build();
-        userPortIn.create(user);
+        createUserOrAdmin(EnumSet.of(Role.USER), userRequestDto);
     }
 
     @Override
     public void createAdmin(UserRequestDto userRequestDto) {
+        createUserOrAdmin(EnumSet.of(Role.ADMIN), userRequestDto);
+    }
+
+    private void createUserOrAdmin(EnumSet<Role> roles, UserRequestDto userRequestDto) {
         if (!userRequestDto.getPassword().equals(userRequestDto.getConfirmPassword())) {
             throw new PasswordNotMatchException();
         }
         User user = User.builder()
+                .dni(userRequestDto.getDni())
                 .email(userRequestDto.getEmail())
-                .password(userRequestDto.getPassword())
+                .password(passwordEncoder.encode(userRequestDto.getPassword()))
                 .name(userRequestDto.getName())
                 .lastname(userRequestDto.getLastname())
                 .active(true)
-                .roles(EnumSet.of(Role.ADMIN))
+                .roles(roles)
                 .build();
         userPortIn.create(user);
     }

@@ -1,8 +1,10 @@
 package com.spring.boot.project.ms.manga.store.domain.model;
 
+import java.time.LocalDateTime;
 import java.util.EnumSet;
 
 public class User {
+
     private Long id;
     private String dni;
     private String email;
