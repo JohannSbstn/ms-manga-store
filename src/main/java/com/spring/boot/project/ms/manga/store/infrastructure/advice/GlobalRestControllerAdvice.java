@@ -2,14 +2,13 @@ package com.spring.boot.project.ms.manga.store.infrastructure.advice;
 
 import com.spring.boot.project.ms.manga.store.application.dto.response.ErrorResponseDto;
 import com.spring.boot.project.ms.manga.store.application.exception.PasswordNotMatchException;
+import com.spring.boot.project.ms.manga.store.domain.exception.UserDniAlreadyExistsException;
 import com.spring.boot.project.ms.manga.store.domain.exception.UserEmailAlreadyExistsException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-
 import java.time.LocalDateTime;
 import java.util.stream.Collectors;
 
@@ -21,7 +20,7 @@ public class GlobalRestControllerAdvice {
         String details = ex.getBindingResult()
                 .getFieldErrors()
                 .stream()
-                .map(this::formatFieldError)
+                .map(error -> error.getField() + ": " + error.getDefaultMessage())
                 .collect(Collectors.joining("; "));
 
         ErrorResponseDto errorResponseDto = new ErrorResponseDto(
@@ -55,10 +54,15 @@ public class GlobalRestControllerAdvice {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponseDto);
     }
 
-    private String formatFieldError(FieldError fe) {
-        String field = fe.getField();
-        String msg = fe.getDefaultMessage();
-        Object rejected = fe.getRejectedValue();
-        return rejected == null ? (field + ": " + msg) : (field + " (" + rejected + "): " + msg);
+    @ExceptionHandler(UserDniAlreadyExistsException.class)
+    public ResponseEntity<ErrorResponseDto> userDniAlreadyExists(UserDniAlreadyExistsException ex) {
+        ErrorResponseDto errorResponseDto = new ErrorResponseDto(
+                Integer.toString(HttpStatus.INTERNAL_SERVER_ERROR.value()),
+                LocalDateTime.now(),
+                ex.getMessage(),
+                ex.getClass().getSimpleName()
+        );
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorResponseDto);
     }
+
 }
