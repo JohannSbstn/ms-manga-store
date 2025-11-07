@@ -80,11 +80,12 @@ public class Volume {
     public Manga getManga() {
         return manga;
     }
-    public static VolumeBuilder builder(){
+
+    public static VolumeBuilder builder() {
         return new VolumeBuilder();
     }
 
-    public static class VolumeBuilder{
+    public static class VolumeBuilder {
         private Long id;
         private String isbn;
         private Integer volumeNumber;
@@ -157,7 +158,8 @@ public class Volume {
             this.manga = manga;
             return this;
         }
-        public Volume build(){
+
+        public Volume build() {
             return new Volume(this);
         }
     }

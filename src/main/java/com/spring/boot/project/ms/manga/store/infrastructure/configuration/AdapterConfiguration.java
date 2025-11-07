@@ -14,11 +14,12 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class AdapterConfiguration {
     @Bean
-    public VolumePortOut volumePortOut(VolumeRepository volumeRepository, VolumeEntityMapper volumeEntityMapper){
+    public VolumePortOut volumePortOut(VolumeRepository volumeRepository, VolumeEntityMapper volumeEntityMapper) {
         return new VolumeJpaAdapter(volumeRepository, volumeEntityMapper);
     }
+
     @Bean
-    public MangaPortOut mangaPortOut(MangaRepository mangaRepository, MangaEntityMapper mangaEntityMapper){
+    public MangaPortOut mangaPortOut(MangaRepository mangaRepository, MangaEntityMapper mangaEntityMapper) {
         return new MangaJpaAdapter(mangaRepository, mangaEntityMapper);
     }
 }

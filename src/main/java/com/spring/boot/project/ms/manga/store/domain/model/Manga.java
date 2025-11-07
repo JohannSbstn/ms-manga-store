@@ -1,7 +1,6 @@
 package com.spring.boot.project.ms.manga.store.domain.model;
 
 import java.time.LocalDate;
-import java.util.Objects;
 
 public class Manga {
     private Long id;

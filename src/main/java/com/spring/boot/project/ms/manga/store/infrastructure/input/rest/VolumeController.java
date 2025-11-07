@@ -19,7 +19,7 @@ public class VolumeController {
     private final VolumeService volumeService;
 
     @PostMapping
-    public ResponseEntity<HttpStatus> createVolume(@RequestBody @Valid VolumeRequestDto volumeRequestDto){
+    public ResponseEntity<HttpStatus> createVolume(@RequestBody @Valid VolumeRequestDto volumeRequestDto) {
         volumeService.create(volumeRequestDto);
         return ResponseEntity.status(HttpStatus.CREATED)
                 .build();

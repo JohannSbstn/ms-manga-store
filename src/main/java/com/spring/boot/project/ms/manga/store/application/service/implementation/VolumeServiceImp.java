@@ -6,7 +6,6 @@ import com.spring.boot.project.ms.manga.store.domain.input.VolumePortIn;
 import com.spring.boot.project.ms.manga.store.domain.input.MangaPortIn;
 import com.spring.boot.project.ms.manga.store.domain.model.Manga;
 import com.spring.boot.project.ms.manga.store.domain.model.Volume;
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

@@ -5,6 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface VolumeRepository extends JpaRepository<VolumeEntity,Long> {
+public interface VolumeRepository extends JpaRepository<VolumeEntity, Long> {
     boolean existsByIsbn(String isbn);
 }
