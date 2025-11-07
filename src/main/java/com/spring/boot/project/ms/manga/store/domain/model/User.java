@@ -1,6 +1,5 @@
 package com.spring.boot.project.ms.manga.store.domain.model;
 
-import java.time.LocalDateTime;
 import java.util.EnumSet;
 
 public class User {

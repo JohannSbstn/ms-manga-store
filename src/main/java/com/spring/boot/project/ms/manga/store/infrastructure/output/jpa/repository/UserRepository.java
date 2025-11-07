@@ -4,8 +4,6 @@ import com.spring.boot.project.ms.manga.store.infrastructure.output.jpa.entity.U
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.Optional;
-
 @Repository
 public interface UserRepository extends JpaRepository<UserEntity, Long> {
 
