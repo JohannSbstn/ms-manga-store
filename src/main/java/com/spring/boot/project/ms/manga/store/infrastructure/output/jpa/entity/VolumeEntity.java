@@ -19,10 +19,12 @@ public class VolumeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "isbn")
     private String isbn;
 
     @Column(name = "numero_volumen")
     private Integer volumeNumber;
+
     @Column(name = "titulo")
     private String title;
 

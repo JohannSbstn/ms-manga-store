@@ -153,7 +153,7 @@ public class Volume {
             return this;
         }
 
-        public VolumeBuilder manga(Manga series) {
+        public VolumeBuilder manga(Manga manga) {
             this.manga = manga;
             return this;
         }
