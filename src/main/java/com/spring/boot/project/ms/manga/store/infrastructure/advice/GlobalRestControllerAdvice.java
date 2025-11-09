@@ -23,7 +23,9 @@ public class GlobalRestControllerAdvice {
 
         ex.getBindingResult()
                 .getFieldErrors()
-                .forEach(error -> errors.put(error.getField(), error.getDefaultMessage()));
+                .forEach(error ->
+                        errors.put(error.getField(), error.getDefaultMessage())
+                );
         response.put("timestamp", LocalDateTime.now());
         response.put("status", HttpStatus.BAD_REQUEST.value());
         response.put("error", "Validation Error");
