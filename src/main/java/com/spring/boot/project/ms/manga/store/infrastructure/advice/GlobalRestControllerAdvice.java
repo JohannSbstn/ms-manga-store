@@ -34,16 +34,19 @@ public class GlobalRestControllerAdvice {
     }
 
     @ExceptionHandler(VolumeAlreadyRegisteredException.class)
-    public ResponseEntity<Map<String, Object>> handleVolumeAlreadyRegisteredException(VolumeAlreadyRegisteredException ex) {
+    public ResponseEntity<Map<String, Object>> handleVolumeAlreadyRegisteredException(
+            VolumeAlreadyRegisteredException ex) {
         return buildErrorResponse(ex, HttpStatus.CONFLICT, "Volume already registered");
     }
 
     @ExceptionHandler(MangaNotExistException.class)
-    public ResponseEntity<Map<String, Object>> handleMangaNotExistException(MangaNotExistException ex) {
+    public ResponseEntity<Map<String, Object>> handleMangaNotExistException(
+            MangaNotExistException ex) {
         return buildErrorResponse(ex, HttpStatus.NOT_FOUND, "Manga not found");
     }
 
-    private ResponseEntity<Map<String, Object>> buildErrorResponse(Exception ex, HttpStatus status, String error) {
+    private ResponseEntity<Map<String, Object>> buildErrorResponse(
+            Exception ex, HttpStatus status, String error) {
         Map<String, Object> body = new HashMap<>();
         body.put("error", error);
         body.put("message", ex.getMessage());
