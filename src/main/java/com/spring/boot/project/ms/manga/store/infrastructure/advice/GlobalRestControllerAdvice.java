@@ -21,7 +21,10 @@ public class GlobalRestControllerAdvice {
         Map<String, Object> response = new HashMap<>();
         Map<String, String> errors = new HashMap<>();
 
-        ex.getBindingResult().getFieldErrors().forEach(error -> errors.put(error.getField(), error.getDefaultMessage()));
+        ex.getBindingResult().getFieldErrors().forEach(error ->
+                errors.put(error.getField(), error.getDefaultMessage())
+        );
+
         response.put("timestamp", LocalDateTime.now());
         response.put("status", HttpStatus.BAD_REQUEST.value());
         response.put("error", "Validation Error");
@@ -32,22 +35,18 @@ public class GlobalRestControllerAdvice {
 
     @ExceptionHandler(VolumeAlreadyRegisteredException.class)
     public ResponseEntity<Map<String, Object>> handleVolumeAlreadyRegisteredException(VolumeAlreadyRegisteredException ex) {
-
         return buildErrorResponse(ex, HttpStatus.CONFLICT, "Volume already registered");
     }
 
     @ExceptionHandler(MangaNotExistException.class)
     public ResponseEntity<Map<String, Object>> handleMangaNotExistException(MangaNotExistException ex) {
-
         return buildErrorResponse(ex, HttpStatus.NOT_FOUND, "Manga not found");
     }
 
     private ResponseEntity<Map<String, Object>> buildErrorResponse(Exception ex, HttpStatus status, String error) {
-
         Map<String, Object> body = new HashMap<>();
         body.put("error", error);
         body.put("message", ex.getMessage());
-
         return new ResponseEntity<>(body, status);
     }
 }
