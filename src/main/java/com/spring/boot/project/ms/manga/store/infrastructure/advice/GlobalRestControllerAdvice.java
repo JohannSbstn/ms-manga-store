@@ -2,7 +2,7 @@ package com.spring.boot.project.ms.manga.store.infrastructure.advice;
 
 import com.spring.boot.project.ms.manga.store.application.dto.response.ErrorResponseDto;
 import com.spring.boot.project.ms.manga.store.application.exception.PasswordNotMatchException;
-import com.spring.boot.project.ms.manga.store.domain.exception.UserDniAlreadyExistsException;
+import com.spring.boot.project.ms.manga.store.domain.exception.UserIdentityDocumentAlreadyExistsException;
 import com.spring.boot.project.ms.manga.store.domain.exception.UserEmailAlreadyExistsException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -54,8 +54,8 @@ public class GlobalRestControllerAdvice {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponseDto);
     }
 
-    @ExceptionHandler(UserDniAlreadyExistsException.class)
-    public ResponseEntity<ErrorResponseDto> userDniAlreadyExists(UserDniAlreadyExistsException ex) {
+    @ExceptionHandler(UserIdentityDocumentAlreadyExistsException.class)
+    public ResponseEntity<ErrorResponseDto> userDniAlreadyExists(UserIdentityDocumentAlreadyExistsException ex) {
         ErrorResponseDto errorResponseDto = new ErrorResponseDto(
                 Integer.toString(HttpStatus.INTERNAL_SERVER_ERROR.value()),
                 LocalDateTime.now(),

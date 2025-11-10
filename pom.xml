@@ -9,9 +9,9 @@
         <relativePath/>
     </parent>
     <groupId>com.spring.boot.project</groupId>
-    <artifactId>ms.volume.store</artifactId>
+    <artifactId>ms.manga.store</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>ms.volume.store</name>
+    <name>ms.manga.store</name>
     <description>Demo project for Spring Boot</description>
     <properties>
         <java.version>21</java.version>
@@ -88,11 +88,26 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.11.0</version>
                 <configuration>
                     <annotationProcessorPaths>
+                        <!-- Lombok debe ir primero -->
                         <path>
                             <groupId>org.projectlombok</groupId>
                             <artifactId>lombok</artifactId>
+                            <version>${lombok.version}</version>
+                        </path>
+                        <!-- Luego Lombok MapStruct Binding -->
+                        <path>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok-mapstruct-binding</artifactId>
+                            <version>${lombok-mapstruct-binding.version}</version>
+                        </path>
+                        <!-- Finalmente MapStruct -->
+                        <path>
+                            <groupId>org.mapstruct</groupId>
+                            <artifactId>mapstruct-processor</artifactId>
+                            <version>${org.mapstruct.version}</version>
                         </path>
                     </annotationProcessorPaths>
                 </configuration>

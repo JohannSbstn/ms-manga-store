@@ -9,8 +9,8 @@ import lombok.Data;
 @Data
 public class UserRequestDto {
 
-    @NotBlank(message = "DNI is required")
-    private String dni;
+    @NotBlank(message = "Identity document is required")
+    private String identityDocument;
 
     @Email(message = "Email format is incorrect")
     @NotBlank(message = "Email is required")
@@ -28,13 +28,9 @@ public class UserRequestDto {
     private String confirmPassword;
 
     @NotBlank(message = "Name is required")
-    @Pattern(regexp = "^[\\p{L} ]+$",
-            message = "Name cannot contain numbers or special characters")
     private String name;
 
     @NotBlank(message = "Lastname is required")
-    @Pattern(regexp = "^[\\p{L} ]+$",
-            message = "Lastname cannot contain numbers or special characters")
     private String lastname;
 
 }

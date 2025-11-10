@@ -31,7 +31,7 @@ class UserServiceImpTest {
     void createUser_WhenPasswordsMatch_ShouldCreateUser() {
         // Arrange
         UserRequestDto userRequestDto = new UserRequestDto();
-        userRequestDto.setDni("12345678");
+        userRequestDto.setIdentityDocument("12345678");
         userRequestDto.setEmail("test@example.com");
         userRequestDto.setPassword("password123");
         userRequestDto.setConfirmPassword("password123");

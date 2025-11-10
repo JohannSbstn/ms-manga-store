@@ -23,7 +23,7 @@ class UserUseCaseTest {
     void create_ShouldCallPortOut() {
         // Arrange
         User user = User.builder()
-                .dni("12345678")
+                .identityDocument("12345678")
                 .email("test@example.com")
                 .password("password")
                 .name("John")

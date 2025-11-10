@@ -5,7 +5,7 @@ import java.util.EnumSet;
 public class User {
 
     private Long id;
-    private String dni;
+    private String identityDocument;
     private String email;
     private String password;
     private String name;
@@ -17,7 +17,7 @@ public class User {
 
     private User(UserBuilder userBuilder) {
         this.id = userBuilder.id;
-        this.dni = userBuilder.dni;
+        this.identityDocument = userBuilder.identityDocument;
         this.email = userBuilder.email;
         this.password = userBuilder.password;
         this.name = userBuilder.name;
@@ -32,8 +32,8 @@ public class User {
         return id;
     }
 
-    public String getDni() {
-        return dni;
+    public String getIdentityDocument() {
+        return identityDocument;
     }
 
     public String getEmail() {
@@ -74,7 +74,7 @@ public class User {
 
     public static class UserBuilder {
         private Long id;
-        private String dni;
+        private String identityDocument;
         private String email;
         private String password;
         private String name;
@@ -89,8 +89,8 @@ public class User {
             return this;
         }
 
-        public UserBuilder dni(String dni) {
-            this.dni = dni;
+        public UserBuilder identityDocument(String identityDocument) {
+            this.identityDocument = identityDocument;
             return this;
         }
 

@@ -34,7 +34,7 @@ public class UserServiceImp implements UserService {
             throw new PasswordNotMatchException();
         }
         User user = User.builder()
-                .dni(userRequestDto.getDni())
+                .identityDocument(userRequestDto.getIdentityDocument())
                 .email(userRequestDto.getEmail())
                 .password(passwordEncoder.encode(userRequestDto.getPassword()))
                 .name(userRequestDto.getName())

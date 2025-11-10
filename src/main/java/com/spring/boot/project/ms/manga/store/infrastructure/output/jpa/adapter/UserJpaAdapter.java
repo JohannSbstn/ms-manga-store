@@ -1,7 +1,7 @@
 package com.spring.boot.project.ms.manga.store.infrastructure.output.jpa.adapter;
 
 import com.spring.boot.project.ms.manga.store.domain.exception.UserEmailAlreadyExistsException;
-import com.spring.boot.project.ms.manga.store.domain.exception.UserDniAlreadyExistsException;
+import com.spring.boot.project.ms.manga.store.domain.exception.UserIdentityDocumentAlreadyExistsException;
 import com.spring.boot.project.ms.manga.store.domain.model.User;
 import com.spring.boot.project.ms.manga.store.domain.output.UserPortOut;
 import com.spring.boot.project.ms.manga.store.infrastructure.output.jpa.entity.UserEntity;
@@ -23,8 +23,8 @@ public class UserJpaAdapter implements UserPortOut {
             throw new UserEmailAlreadyExistsException(user.getEmail());
         }
 
-        if (userRepository.existsByDni(user.getDni())) {
-            throw new UserDniAlreadyExistsException(user.getDni());
+        if (userRepository.existsByIdentityDocument(user.getIdentityDocument())) {
+            throw new UserIdentityDocumentAlreadyExistsException(user.getIdentityDocument());
         }
 
         UserEntity userEntity = userEntityMapper.toEntity(user);
