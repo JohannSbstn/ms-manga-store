@@ -65,7 +65,7 @@ public class User {
     }
 
     public EnumSet<Role> getRoles() {
-        return roles;
+        return roles != null ? EnumSet.copyOf(roles) : null;
     }
 
     public static UserBuilder builder() {
@@ -130,7 +130,7 @@ public class User {
         }
 
         public UserBuilder roles(EnumSet<Role> roles) {
-            this.roles = roles;
+            this.roles = roles != null ? EnumSet.copyOf(roles) : null;
             return this;
         }
 
