@@ -1,5 +1,6 @@
 package com.spring.boot.project.ms.manga.store.infrastructure.advice;
 
+import com.spring.boot.project.ms.manga.store.application.dto.response.ErrorResponseDto;
 import com.spring.boot.project.ms.manga.store.domain.exception.MangaNotExistException;
 import com.spring.boot.project.ms.manga.store.domain.exception.VolumeAlreadyRegisteredException;
 import org.springframework.http.HttpStatus;
@@ -34,22 +35,26 @@ public class GlobalRestControllerAdvice {
     }
 
     @ExceptionHandler(VolumeAlreadyRegisteredException.class)
-    public ResponseEntity<Map<String, Object>> handleVolumeAlreadyRegisteredException(
+    public ResponseEntity<ErrorResponseDto> handleVolumeAlreadyRegisteredException(
             VolumeAlreadyRegisteredException ex) {
-        return buildErrorResponse(ex, HttpStatus.CONFLICT, "Volume already registered");
+        ErrorResponseDto errorResponseDto = new ErrorResponseDto(
+                Integer.toString(HttpStatus.CONFLICT.value()),
+                LocalDateTime.now(),
+                ex.getMessage(),
+                ex.getClass().getSimpleName()
+        );
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(errorResponseDto);
     }
 
     @ExceptionHandler(MangaNotExistException.class)
-    public ResponseEntity<Map<String, Object>> handleMangaNotExistException(
+    public ResponseEntity<ErrorResponseDto> handleMangaNotExistException(
             MangaNotExistException ex) {
-        return buildErrorResponse(ex, HttpStatus.NOT_FOUND, "Manga not found");
-    }
-
-    private ResponseEntity<Map<String, Object>> buildErrorResponse(
-            Exception ex, HttpStatus status, String error) {
-        Map<String, Object> body = new HashMap<>();
-        body.put("error", error);
-        body.put("message", ex.getMessage());
-        return new ResponseEntity<>(body, status);
+        ErrorResponseDto errorResponseDto = new ErrorResponseDto(
+                Integer.toString(HttpStatus.NOT_FOUND.value()),
+                LocalDateTime.now(),
+                ex.getMessage(),
+                ex.getClass().getSimpleName()
+        );
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponseDto);
     }
 }
