@@ -16,6 +16,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 
+import java.io.Serial;
 import java.time.LocalDateTime;
 
 @Entity
@@ -51,6 +52,8 @@ public class UserRoleEntity {
     @EqualsAndHashCode
     public static class UserRoleId implements java.io.Serializable {
 
+        @Serial
+        private static final long serialVersionUID = -3985973500982577557L;
         private Long userId;
         private Long roleId;
     }

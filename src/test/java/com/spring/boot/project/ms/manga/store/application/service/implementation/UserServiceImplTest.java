@@ -16,7 +16,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-class UserServiceImpTest {
+class UserServiceImplTest {
 
     @Mock
     private UserPortIn userPortIn;
@@ -25,7 +25,7 @@ class UserServiceImpTest {
     private PasswordEncoder passwordEncoder;
 
     @InjectMocks
-    private UserServiceImp userServiceImp;
+    private UserServiceImpl userServiceImpl;
 
     @Test
     void createUser_WhenPasswordsMatch_ShouldCreateUser() {
@@ -41,7 +41,7 @@ class UserServiceImpTest {
         when(passwordEncoder.encode("password123")).thenReturn("encodedPassword");
 
         // Act
-        userServiceImp.createUser(userRequestDto);
+        userServiceImpl.createUser(userRequestDto);
 
         // Assert
         verify(userPortIn).create(any(User.class));
@@ -60,7 +60,7 @@ class UserServiceImpTest {
         // Act & Assert
         PasswordNotMatchException exception = assertThrows(
                 PasswordNotMatchException.class,
-                () -> userServiceImp.createUser(userRequestDto)
+                () -> userServiceImpl.createUser(userRequestDto)
         );
 
         assertEquals(expectedMessage, exception.getMessage());
@@ -80,7 +80,7 @@ class UserServiceImpTest {
         // Act & Assert
         PasswordNotMatchException exception = assertThrows(
                 PasswordNotMatchException.class,
-                () -> userServiceImp.createAdmin(userRequestDto)
+                () -> userServiceImpl.createAdmin(userRequestDto)
         );
 
         assertEquals(expectedMessage, exception.getMessage());

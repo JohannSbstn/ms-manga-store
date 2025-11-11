@@ -14,7 +14,7 @@ import java.util.EnumSet;
 
 @Service
 @RequiredArgsConstructor
-public class UserServiceImp implements UserService {
+public class UserServiceImpl implements UserService {
 
     private final UserPortIn userPortIn;
     private final PasswordEncoder passwordEncoder;
