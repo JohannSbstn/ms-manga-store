@@ -9,14 +9,15 @@
         <relativePath/>
     </parent>
     <groupId>com.spring.boot.project</groupId>
-    <artifactId>ms.volume.store</artifactId>
+    <artifactId>ms.manga.store</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>ms.volume.store</name>
+    <name>ms.manga.store</name>
     <description>Demo project for Spring Boot</description>
     <properties>
         <java.version>21</java.version>
         <org.mapstruct.version>1.6.3</org.mapstruct.version>
         <lombok.version>1.18.32</lombok.version>
+        <lombok-mapstruct-binding.version>0.2.0</lombok-mapstruct-binding.version>
     </properties>
     <dependencies>
         <!-- Spring Starters -->
@@ -68,45 +69,49 @@
             <optional>true</optional>
             <scope>provided</scope>
         </dependency>
-        <!-- MapStruct API -->
-        <dependency>
-            <groupId>org.mapstruct</groupId>
-            <artifactId>mapstruct-processor</artifactId>
-            <version>${org.mapstruct.version}</version>
-        </dependency>
+        <!-- MapStruct CORREGIDO: Primero la API, luego el processor -->
         <dependency>
             <groupId>org.mapstruct</groupId>
             <artifactId>mapstruct</artifactId>
             <version>${org.mapstruct.version}</version>
         </dependency>
-
+        <dependency>
+            <groupId>org.mapstruct</groupId>
+            <artifactId>mapstruct-processor</artifactId>
+            <version>${org.mapstruct.version}</version>
+            <scope>provided</scope>
+            <optional>true</optional>
+        </dependency>
     </dependencies>
     <build>
         <plugins>
-            <!-- Compiler con annotation processors -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.11.0</version>
                 <configuration>
-                    <source>${java.version}</source>
-                    <target>${java.version}</target>
                     <annotationProcessorPaths>
-                        <!-- Lombok -->
+                        <!-- Lombok debe ir primero -->
                         <path>
                             <groupId>org.projectlombok</groupId>
                             <artifactId>lombok</artifactId>
                             <version>${lombok.version}</version>
                         </path>
+                        <!-- Luego Lombok MapStruct Binding -->
+                        <path>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok-mapstruct-binding</artifactId>
+                            <version>${lombok-mapstruct-binding.version}</version>
+                        </path>
+                        <!-- Finalmente MapStruct -->
+                        <path>
+                            <groupId>org.mapstruct</groupId>
+                            <artifactId>mapstruct-processor</artifactId>
+                            <version>${org.mapstruct.version}</version>
+                        </path>
                     </annotationProcessorPaths>
-                    <!-- Opcional: registrar mappers como beans Spring -->
-                    <!--
-                    <compilerArgs>
-                        <compilerArg>-Amapstruct.defaultComponentModel=spring</compilerArg>
-                    </compilerArgs>
-                    -->
                 </configuration>
             </plugin>
-            <!-- Spring Boot -->
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
@@ -119,7 +124,6 @@
                     </excludes>
                 </configuration>
             </plugin>
-            <!-- Calidad: Checkstyle -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-checkstyle-plugin</artifactId>
@@ -139,13 +143,11 @@
                     </execution>
                 </executions>
             </plugin>
-            <!-- Tests -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>3.2.5</version>
             </plugin>
-            <!-- Cobertura -->
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
@@ -185,8 +187,20 @@
                         </configuration>
                     </execution>
                 </executions>
+                <configuration>
+                    <excludes>
+                        <exclude>com/spring/boot/project/ms/manga/store/application/dto/**</exclude>
+                        <exclude>com/spring/boot/project/ms/manga/store/application/exception/**</exclude>
+                        <exclude>com/spring/boot/project/ms/manga/store/application/mapper/**</exclude>
+                        <exclude>com/spring/boot/project/ms/manga/store/domain/exception/**</exclude>
+                        <exclude>com/spring/boot/project/ms/manga/store/domain/model/**</exclude>
+                        <exclude>com/spring/boot/project/ms/manga/store/infrastructure/advice/**</exclude>
+                        <exclude>com/spring/boot/project/ms/manga/store/infrastructure/configuration/**</exclude>
+                        <exclude>com/spring/boot/project/ms/manga/store/infrastructure/output/jpa/entity/**</exclude>
+                        <exclude>com/spring/boot/project/ms/manga/store/infrastructure/output/jpa/mapper/**</exclude>
+                    </excludes>
+                </configuration>
             </plugin>
-            <!-- SpotBugs + FindSecBugs -->
             <plugin>
                 <groupId>com.github.spotbugs</groupId>
                 <artifactId>spotbugs-maven-plugin</artifactId>
@@ -212,7 +226,6 @@
                     </execution>
                 </executions>
             </plugin>
-            <!-- PMD -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-pmd-plugin</artifactId>

@@ -15,6 +15,9 @@ public class VolumeUseCase implements VolumePortIn {
 
     @Override
     public void create(Volume volume) {
+        if (volume == null) {
+            return;
+        }
         volumePortOut.create(volume);
     }
 }
