@@ -23,6 +23,7 @@ public class AdapterConfiguration {
     public UserPortOut userPortOut(UserRepository userRepository, UserEntityMapper userEntityMapper) {
         return new UserJpaAdapter(userRepository, userEntityMapper);
     }
+
     public VolumePortOut volumePortOut(VolumeRepository volumeRepository, VolumeEntityMapper volumeEntityMapper) {
         return new VolumeJpaAdapter(volumeRepository, volumeEntityMapper);
     }

@@ -16,6 +16,7 @@ public class UseCaseConfiguration {
     public UserPortIn userPortIn(UserPortOut userPortOut) {
         return new UserUseCase(userPortOut);
     }
+
     public VolumePortIn volumePortIn(VolumePortOut volumePortOut) {
         return new VolumeUseCase(volumePortOut);
     }
