@@ -17,6 +17,7 @@ public class UseCaseConfiguration {
         return new UserUseCase(userPortOut);
     }
 
+    @Bean
     public VolumePortIn volumePortIn(VolumePortOut volumePortOut) {
         return new VolumeUseCase(volumePortOut);
     }

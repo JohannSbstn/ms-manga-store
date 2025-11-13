@@ -24,6 +24,7 @@ public class AdapterConfiguration {
         return new UserJpaAdapter(userRepository, userEntityMapper);
     }
 
+    @Bean
     public VolumePortOut volumePortOut(VolumeRepository volumeRepository, VolumeEntityMapper volumeEntityMapper) {
         return new VolumeJpaAdapter(volumeRepository, volumeEntityMapper);
     }
