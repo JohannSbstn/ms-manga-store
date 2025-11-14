@@ -15,17 +15,17 @@ import java.time.LocalDate;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-class VolumeServiceImpTest {
+class VolumeServiceImplTest {
 
     private VolumePortIn volumePortIn;
     private MangaPortIn mangaPortIn;
-    private VolumeServiceImp volumeService;
+    private VolumeServiceImpl volumeService;
 
     @BeforeEach
     void setUp() {
         volumePortIn = mock(VolumePortIn.class);
         mangaPortIn = mock(MangaPortIn.class);
-        volumeService = new VolumeServiceImp(volumePortIn, mangaPortIn);
+        volumeService = new VolumeServiceImpl(volumePortIn, mangaPortIn);
     }
 
     @Test

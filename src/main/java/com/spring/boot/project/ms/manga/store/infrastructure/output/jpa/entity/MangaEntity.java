@@ -41,7 +41,4 @@ public class MangaEntity {
     @Column(name = "fecha_inicio")
     private LocalDate startDate;
 
-//    // 🔗 Relación 1:N con VolumenEntity
-//    @OneToMany(mappedBy = "manga", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-//    private List<VolumeEntity> volumenes;
 }

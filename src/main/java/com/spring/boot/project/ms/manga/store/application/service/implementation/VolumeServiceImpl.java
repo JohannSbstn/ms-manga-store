@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class VolumeServiceImp implements VolumeService {
+public class VolumeServiceImpl implements VolumeService {
 
     private final VolumePortIn volumePortIn;
     private final MangaPortIn mangaPortIn;

@@ -3,9 +3,9 @@ package com.spring.boot.project.ms.manga.store.application.dto.request;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.PositiveOrZero;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.DecimalMin;
-import jakarta.validation.constraints.PastOrPresent;
 import lombok.Data;
 
 import java.math.BigDecimal;
@@ -18,7 +18,7 @@ public class VolumeRequestDto {
     private String isbn;
 
     @NotNull(message = "the volume number is required")
-    @Positive(message = "the volume number must be greater than 0")
+    @PositiveOrZero(message = "the volume number must be 0 or greater")
     private Integer volumeNumber;
 
     @NotBlank(message = "the title can't be empty")
@@ -35,7 +35,7 @@ public class VolumeRequestDto {
     @Min(value = 0, message = "the stock can't be negative")
     private Integer stock;
 
-    @PastOrPresent(message = "the publication date can't be in the future")
+    @NotNull(message = "the publication date is required")
     private LocalDate publicationDate;
 
     @NotNull(message = "the number of pages is required")

@@ -61,13 +61,4 @@ public class VolumeEntity {
     @Column(name = "serie_id")
     private Long mangaId;
 
-//    // 🔗 Relación con Manga
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "manga_id", nullable = false)
-//    private MangaEntity manga;
-
-//    // 🔗 Relación con Editorial (opcional)
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "editorial_id")
-//    private EditorialEntity editorial;
 }

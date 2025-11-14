@@ -10,7 +10,6 @@ public class Manga {
     private Integer totalVolumes;
     private LocalDate startDate;
 
-    // Constructor
     public Manga(Long id, String title, String author, String description,
                  Integer totalVolumes, LocalDate startDate) {
         this.id = id;
