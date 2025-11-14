@@ -8,12 +8,12 @@ import org.springframework.test.context.ActiveProfiles;
 @ActiveProfiles("test")
 class ApplicationTests {
 
-	@Test
-	void contextLoads() {
-	}
+    @Test
+    void contextLoads() {
+    }
 
     @Test
     void mainRuns() {
-        Application.main(new String[] { "--spring.profiles.active=test" });
+        Application.main(new String[]{"--spring.profiles.active=test"});
     }
 }
