@@ -16,6 +16,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(VolumeController.class)
@@ -34,17 +35,17 @@ class VolumeControllerTest {
 
     @BeforeEach
     void setUp() {
-        dto = new VolumeRequestDto();
-        dto.setIsbn("978-1234567890");
-        dto.setVolumeNumber(1);
-        dto.setTitle("Attack on Titan Vol. 1");
-        dto.setDescription("First volume of AOT");
-        dto.setPrice(BigDecimal.valueOf(49.99));
-        dto.setStock(10);
-        dto.setPublicationDate(LocalDate.of(2020, 1, 1));
-        dto.setPages(200);
-        dto.setLanguage("EN");
-        dto.setMangaId(1L);
+        dto = new VolumeRequestDto("978-1234567890",
+                1,
+                "Attack on Titan Vol. 1",
+                "First volume of AOT",
+                BigDecimal.valueOf(49.99),
+                10,
+                LocalDate.of(2020, 1, 1),
+                200,
+                "EN",
+                1L
+        );
     }
 
     @Test
@@ -58,7 +59,19 @@ class VolumeControllerTest {
                         .content(objectMapper.writeValueAsString(dto)))
                 .andExpect(status().isCreated());
 
-        // Verifica que el servicio se llamó una sola vez
         Mockito.verify(volumeService, Mockito.times(1)).create(Mockito.any(VolumeRequestDto.class));
+    }
+
+    @Test
+    void switchVolumeStatus_ShouldReturn204_NoContent() throws Exception {
+        // Arrange
+        Mockito.doNothing().when(volumeService).switchVolumeStatus("978-1234567890");
+
+        // Act & Assert
+        mockMvc.perform(patch("/volume/978-1234567890"))
+                .andExpect(status().isNoContent());
+
+        Mockito.verify(volumeService, Mockito.times(1))
+                .switchVolumeStatus("978-1234567890");
     }
 }
