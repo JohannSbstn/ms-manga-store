@@ -47,6 +47,6 @@ public record VolumeRequestDto(
         Long mangaId
 
 ) {
-        public void mangaId(long l) {
-        }
+    public void mangaId(long l) {
+    }
 }
