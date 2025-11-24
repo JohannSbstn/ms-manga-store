@@ -30,15 +30,15 @@ public class UserServiceImpl implements UserService {
     }
 
     private void createUserOrAdmin(EnumSet<Role> roles, UserRequestDto userRequestDto) {
-        if (!userRequestDto.getPassword().equals(userRequestDto.getConfirmPassword())) {
+        if (!userRequestDto.password().equals(userRequestDto.confirmPassword())) {
             throw new PasswordNotMatchException();
         }
         User user = User.builder()
-                .identityDocument(userRequestDto.getIdentityDocument())
-                .email(userRequestDto.getEmail())
-                .password(passwordEncoder.encode(userRequestDto.getPassword()))
-                .name(userRequestDto.getName())
-                .lastname(userRequestDto.getLastname())
+                .identityDocument(userRequestDto.identityDocument())
+                .email(userRequestDto.email())
+                .password(passwordEncoder.encode(userRequestDto.password()))
+                .name(userRequestDto.name())
+                .lastname(userRequestDto.lastname())
                 .active(true)
                 .roles(roles)
                 .build();
