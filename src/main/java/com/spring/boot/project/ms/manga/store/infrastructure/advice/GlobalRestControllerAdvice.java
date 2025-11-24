@@ -1,9 +1,9 @@
 package com.spring.boot.project.ms.manga.store.infrastructure.advice;
 
-import com.spring.boot.project.ms.manga.store.application.dto.response.ErrorResponseDto;
 import com.spring.boot.project.ms.manga.store.application.exception.PasswordNotMatchException;
 import com.spring.boot.project.ms.manga.store.domain.exception.UserIdentityDocumentAlreadyExistsException;
 import com.spring.boot.project.ms.manga.store.domain.exception.UserEmailAlreadyExistsException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import java.time.LocalDateTime;
 import java.util.stream.Collectors;
 
+@Slf4j
 @RestControllerAdvice
 public class GlobalRestControllerAdvice {
 
@@ -65,4 +66,18 @@ public class GlobalRestControllerAdvice {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorResponseDto);
     }
 
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<ErrorResponseDto> genericException(Exception ex) {
+        log.error(ex.getMessage());
+        HttpStatus httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
+        ErrorResponseDto errorResponseDto = new ErrorResponseDto(
+                Integer.toString(httpStatus.value()),
+                LocalDateTime.now(),
+                httpStatus.getReasonPhrase(),
+                ex.getClass().getSimpleName()
+        );
+        return ResponseEntity.status(httpStatus.value()).body(errorResponseDto);
+    }
+
+    public record ErrorResponseDto(String code, LocalDateTime timestamp, String description, String exception) {}
 }

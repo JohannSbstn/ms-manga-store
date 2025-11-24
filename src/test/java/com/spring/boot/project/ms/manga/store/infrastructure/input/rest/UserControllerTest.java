@@ -14,13 +14,13 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-class AuthControllerTest {
+class UserControllerTest {
 
     @Mock
     private UserService userService;
 
     @InjectMocks
-    private AuthController authController;
+    private UserController userController;
 
     @Test
     void createUser_ShouldReturnCreatedStatus() {
@@ -36,7 +36,7 @@ class AuthControllerTest {
         doNothing().when(userService).createUser(userRequestDto);
 
         // Act
-        ResponseEntity<HttpStatus> response = authController.createUser(userRequestDto);
+        ResponseEntity<HttpStatus> response = userController.createUser(userRequestDto);
 
         // Assert
         assertEquals(HttpStatus.CREATED, response.getStatusCode());
