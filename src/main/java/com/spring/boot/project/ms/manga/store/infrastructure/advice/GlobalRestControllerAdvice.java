@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+
 import java.time.LocalDateTime;
 import java.util.stream.Collectors;
 
@@ -81,7 +82,9 @@ public class GlobalRestControllerAdvice {
         return ResponseEntity.status(httpStatus.value()).body(errorResponseDto);
     }
 
-    public record ErrorResponseDto(String code, LocalDateTime timestamp, String description, String exception) {}
+    public record ErrorResponseDto(String code, LocalDateTime timestamp, String description, String exception) {
+    }
+
     @ExceptionHandler(VolumeAlreadyRegisteredException.class)
     public ResponseEntity<ErrorResponseDto> handleVolumeAlreadyRegisteredException(
             VolumeAlreadyRegisteredException ex) {
