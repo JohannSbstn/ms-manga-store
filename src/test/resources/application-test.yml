@@ -13,9 +13,13 @@ spring:
     hibernate:
       ddl-auto: create-drop
     show-sql: false
+
 jwt:
   access:
     token:
       secret: "test-secret-key-for-jwt-in-test-environment"
+      validity:
+        seconds: 3600
 
 JWT_ACCESS_TOKEN_SECRET: "test-secret-key-for-jwt-in-test-environment"
+JWT_ACCESS_TOKEN_VALIDITY_SECONDS: 3600
