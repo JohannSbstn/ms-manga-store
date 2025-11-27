@@ -16,18 +16,18 @@ public class VolumeJpaAdapter implements VolumePortOut {
 
     @Override
     public void create(Volume volume) {
-        if (volumeRepository.existsByIsbn(volume.getIsbn())) {
-            throw new VolumeAlreadyRegisteredException(volume.getIsbn());
+        if (volumeRepository.existsByIsbn(volume.isbn())) {
+            throw new VolumeAlreadyRegisteredException(volume.isbn());
         }
         VolumeEntity volumeEntity = volumeEntityMapper.toEntity(volume);
-        volumeEntity.setMangaId(volume.getManga().getId());
+        volumeEntity.setMangaId(volume.manga().id());
         volumeRepository.save(volumeEntity);
     }
 
     @Override
     public void update(Volume volume) {
         VolumeEntity volumeEntity = volumeEntityMapper.toEntity(volume);
-        volumeEntity.setMangaId(volume.getManga().getId());
+        volumeEntity.setMangaId(volume.manga().id());
         volumeRepository.save(volumeEntity);
     }
 

@@ -43,7 +43,7 @@ class MangaUseCaseTest {
 
         // Assert
         assertNotNull(result);
-        assertEquals("Naruto", result.getTitle());
+        assertEquals("Naruto", result.title());
         verify(mangaPortOut, times(1)).getById(10L);
     }
 

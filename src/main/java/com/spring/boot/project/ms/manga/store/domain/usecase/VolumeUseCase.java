@@ -32,7 +32,7 @@ public class VolumeUseCase implements VolumePortIn {
     public Volume getByIsbn(String isbn) {
         Volume oldVolume = volumePortOut.getByIsbn(isbn);
         return oldVolume.toBuilder()
-                .manga(mangaPortOut.getById(oldVolume.manga().getId()))
+                .manga(mangaPortOut.getById(oldVolume.manga().id()))
                 .build();
     }
 

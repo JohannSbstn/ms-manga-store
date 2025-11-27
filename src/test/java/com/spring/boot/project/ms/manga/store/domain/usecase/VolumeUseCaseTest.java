@@ -77,10 +77,10 @@ class VolumeUseCaseTest {
         verify(volumePortOut, times(1)).create(captor.capture());
         Volume captured = captor.getValue();
 
-        assertEquals(volume.getIsbn(), captured.getIsbn());
-        assertEquals(volume.getTitle(), captured.getTitle());
-        assertEquals(volume.getPrice(), captured.getPrice());
-        assertEquals(volume.getManga().getId(), captured.getManga().getId());
+        assertEquals(volume.isbn(), captured.isbn());
+        assertEquals(volume.title(), captured.title());
+        assertEquals(volume.price(), captured.price());
+        assertEquals(volume.manga().id(), captured.manga().id());
     }
 
     // --------------------------------------------------------------------
@@ -158,10 +158,10 @@ class VolumeUseCaseTest {
 
         // Assert
         assertNotNull(result);
-        assertEquals(oldVolume.getId(), result.getId());
-        assertEquals(oldVolume.getIsbn(), result.getIsbn());
-        assertEquals(oldVolume.getAvailable(), result.getAvailable());
-        assertEquals(manga.getId(), result.getManga().getId());
+        assertEquals(oldVolume.id(), result.id());
+        assertEquals(oldVolume.isbn(), result.isbn());
+        assertEquals(oldVolume.available(), result.available());
+        assertEquals(manga.id(), result.manga().id());
 
         // Verify mocks
         verify(volumePortOut, times(1)).getByIsbn("999-1112223334");

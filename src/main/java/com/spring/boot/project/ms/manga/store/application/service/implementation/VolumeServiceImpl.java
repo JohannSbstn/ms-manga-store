@@ -2,8 +2,8 @@ package com.spring.boot.project.ms.manga.store.application.service.implementatio
 
 import com.spring.boot.project.ms.manga.store.application.dto.request.VolumeRequestDto;
 import com.spring.boot.project.ms.manga.store.application.service.VolumeService;
-import com.spring.boot.project.ms.manga.store.domain.input.VolumePortIn;
 import com.spring.boot.project.ms.manga.store.domain.input.MangaPortIn;
+import com.spring.boot.project.ms.manga.store.domain.input.VolumePortIn;
 import com.spring.boot.project.ms.manga.store.domain.model.Manga;
 import com.spring.boot.project.ms.manga.store.domain.model.Volume;
 import lombok.RequiredArgsConstructor;

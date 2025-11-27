@@ -22,10 +22,10 @@ public class MangaServiceImpl implements MangaService {
             throw new MangaNotExistException(mangaId);
         }
         return new MangaResponseDto(
-                manga.getTitle(),
-                manga.getAuthor(),
-                manga.getDescription(),
-                manga.getTotalVolumes(),
+                manga.title(),
+                manga.author(),
+                manga.description(),
+                manga.totalVolumes(),
                 LocalDate.now()
         );
     }

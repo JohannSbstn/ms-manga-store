@@ -2,49 +2,21 @@ package com.spring.boot.project.ms.manga.store.domain.model;
 
 import java.time.LocalDate;
 
-public class Manga {
-    private Long id;
-    private String title;
-    private String author;
-    private String description;
-    private Integer totalVolumes;
-    private LocalDate startDate;
-
-    private Manga(MangaBuilder mangaBuilder) {
-        this.id = mangaBuilder.id;
-        this.title = mangaBuilder.title;
-        this.author = mangaBuilder.author;
-        this.description = mangaBuilder.description;
-        this.totalVolumes = mangaBuilder.totalVolumes;
-        this.startDate = mangaBuilder.startDate;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public String getAuthor() {
-        return author;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public Integer getTotalVolumes() {
-        return totalVolumes;
-    }
-
-    public LocalDate getStartDate() {
-        return startDate;
-    }
+public record Manga(
+        Long id,
+        String title,
+        String author,
+        String description,
+        Integer totalVolumes,
+        LocalDate startDate
+) {
 
     public static MangaBuilder builder() {
         return new MangaBuilder();
+    }
+
+    public MangaBuilder toBuilder() {
+        return new MangaBuilder(this);
     }
 
     public static class MangaBuilder {
@@ -86,7 +58,23 @@ public class Manga {
         }
 
         public Manga build() {
-            return new Manga(this);
+            return new Manga(this.id,
+                    this.title, this.author,
+                    this.description,
+                    this.totalVolumes,
+                    this.startDate);
+        }
+
+        public MangaBuilder() {
+        }
+
+        public MangaBuilder(Manga manga) {
+            this.id = manga.id;
+            this.title = manga.title;
+            this.author = manga.author;
+            this.description = manga.description;
+            this.totalVolumes = manga.totalVolumes;
+            this.startDate = manga.startDate;
         }
     }
 }

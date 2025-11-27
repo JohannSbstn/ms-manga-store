@@ -54,7 +54,7 @@ class MangaJpaAdapterTest {
 
         // Assert
         assertNotNull(result);
-        assertEquals("One Piece", result.getTitle());
+        assertEquals("One Piece", result.title());
         verify(mangaRepository, times(1)).findById(1L);
         verify(mangaEntityMapper, times(1)).toModel(entity);
     }
