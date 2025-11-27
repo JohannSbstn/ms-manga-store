@@ -3,86 +3,27 @@ package com.spring.boot.project.ms.manga.store.domain.model;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-public class Volume {
-    private Long id;
-    private String isbn;
-    private Integer volumeNumber;
-    private String title;
-    private String description;
-    private BigDecimal price;
-    private Integer stock;
-    private LocalDate publicationDate;
-    private Integer pages;
-    private String language;
-    private Boolean available;
-
-    private Manga manga;
-
-    private Volume(VolumeBuilder volumeBuilder) {
-        this.id = volumeBuilder.id;
-        this.isbn = volumeBuilder.isbn;
-        this.volumeNumber = volumeBuilder.volumeNumber;
-        this.title = volumeBuilder.title;
-        this.description = volumeBuilder.description;
-        this.price = volumeBuilder.price;
-        this.stock = volumeBuilder.stock;
-        this.publicationDate = volumeBuilder.publicationDate;
-        this.pages = volumeBuilder.pages;
-        this.language = volumeBuilder.language;
-        this.available = volumeBuilder.available;
-        this.manga = volumeBuilder.manga;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public String getIsbn() {
-        return isbn;
-    }
-
-    public Integer getVolumeNumber() {
-        return volumeNumber;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public BigDecimal getPrice() {
-        return price;
-    }
-
-    public Integer getStock() {
-        return stock;
-    }
-
-    public LocalDate getPublicationDate() {
-        return publicationDate;
-    }
-
-    public Integer getPages() {
-        return pages;
-    }
-
-    public String getLanguage() {
-        return language;
-    }
-
-    public Boolean getAvailable() {
-        return available;
-    }
-
-    public Manga getManga() {
-        return manga;
-    }
+public record Volume(
+        Long id,
+        String isbn,
+        Integer volumeNumber,
+        String title,
+        String description,
+        BigDecimal price,
+        Integer stock,
+        LocalDate publicationDate,
+        Integer pages,
+        String language,
+        Boolean available,
+        Manga manga
+) {
 
     public static VolumeBuilder builder() {
         return new VolumeBuilder();
+    }
+
+    public VolumeBuilder toBuilder() {
+        return new VolumeBuilder(this);
     }
 
     public static class VolumeBuilder {
@@ -160,7 +101,36 @@ public class Volume {
         }
 
         public Volume build() {
-            return new Volume(this);
+            return new Volume(this.id,
+                    this.isbn,
+                    this.volumeNumber,
+                    this.title,
+                    this.description,
+                    this.price,
+                    this.stock,
+                    this.publicationDate,
+                    this.pages,
+                    this.language,
+                    this.available,
+                    this.manga);
+        }
+
+        public VolumeBuilder() {
+        }
+
+        public VolumeBuilder(Volume volume) {
+            this.id = volume.id;
+            this.isbn = volume.isbn;
+            this.volumeNumber = volume.volumeNumber;
+            this.title = volume.title;
+            this.description = volume.description;
+            this.price = volume.price;
+            this.stock = volume.stock;
+            this.publicationDate = volume.publicationDate;
+            this.pages = volume.pages;
+            this.language = volume.language;
+            this.available = volume.available;
+            this.manga = volume.manga;
         }
     }
 }
