@@ -43,7 +43,7 @@ class VolumeServiceImplTest {
         // Given
         VolumeRequestDto dto = new VolumeRequestDto(
                 "978-1234567890",
-                5,
+                5.0,
                 "Attack on Titan Vol. 5",
                 "Eren faces new challenges...",
                 BigDecimal.valueOf(49.99),
@@ -59,7 +59,7 @@ class VolumeServiceImplTest {
                 .title("Attack on Titan")
                 .author("Hajime Isayama")
                 .description("Humanity vs Titans")
-                .totalVolumes(34)
+                .totalVolumes(34.0)
                 .startDate(LocalDate.of(2009, 9, 9))
                 .build();
 
@@ -77,7 +77,7 @@ class VolumeServiceImplTest {
 
         assertNotNull(captured);
         assertEquals("978-1234567890", captured.getIsbn());
-        assertEquals(5, captured.getVolumeNumber());
+        assertEquals(5.0, captured.getVolumeNumber());
         assertEquals("Attack on Titan Vol. 5", captured.getTitle());
         assertEquals("Eren faces new challenges...", captured.getDescription());
         assertEquals(BigDecimal.valueOf(49.99), captured.getPrice());
@@ -100,14 +100,14 @@ class VolumeServiceImplTest {
                 .title("One Piece")
                 .author("Oda")
                 .description("Pirates")
-                .totalVolumes(100)
+                .totalVolumes(100.0)
                 .startDate(LocalDate.of(1997, 7, 22))
                 .build();
 
         Volume existing = Volume.builder()
                 .id(10L)
                 .isbn("999-1112223334")
-                .volumeNumber(20)
+                .volumeNumber(20.0)
                 .title("One Piece Vol. 20")
                 .description("Arc")
                 .price(BigDecimal.TEN)
