@@ -7,7 +7,7 @@ public class Manga {
     private String title;
     private String author;
     private String description;
-    private Integer totalVolumes;
+    private Float totalVolumes;
     private LocalDate startDate;
 
     private Manga(MangaBuilder mangaBuilder) {
@@ -35,7 +35,7 @@ public class Manga {
         return description;
     }
 
-    public Integer getTotalVolumes() {
+    public Float getTotalVolumes() {
         return totalVolumes;
     }
 
@@ -52,7 +52,7 @@ public class Manga {
         private String title;
         private String author;
         private String description;
-        private Integer totalVolumes;
+        private Float totalVolumes;
         private LocalDate startDate;
 
         public MangaBuilder id(Long id) {
@@ -75,7 +75,7 @@ public class Manga {
             return this;
         }
 
-        public MangaBuilder totalVolumes(Integer totalVolumes) {
+        public MangaBuilder totalVolumes(Float totalVolumes) {
             this.totalVolumes = totalVolumes;
             return this;
         }

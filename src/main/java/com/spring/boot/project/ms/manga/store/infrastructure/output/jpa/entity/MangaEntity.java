@@ -37,7 +37,7 @@ public class MangaEntity {
     private String description;
 
     @Column(name = "total_volumenes")
-    private Integer totalVolumes;
+    private Float totalVolumes;
 
     @Column(name = "fecha_inicio")
     private LocalDate startDate;
