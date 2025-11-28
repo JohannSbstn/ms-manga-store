@@ -42,9 +42,10 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                                             Authentication authResult)
             throws IOException, ServletException {
         UserDetailImpl userDetail = (UserDetailImpl) authResult.getPrincipal();
-        String token = tokenService.generateToken(userDetail.getId(), userDetail.getUsername());
+        String token = tokenService.generateToken(userDetail.getId(), userDetail.getUsername(),
+                userDetail.getAuthorities());
         Map<String, String> success = new HashMap<>();
-        success.put("token:", token);
+        success.put("token", token);
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
         new ObjectMapper().writeValue(response.getOutputStream(), success);
     }
@@ -56,8 +57,8 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         response.setHeader("error:", failed.getMessage());
         response.setStatus(HttpStatus.UNAUTHORIZED.value());
         Map<String, String> error = new HashMap<>();
-        error.put("title:", failed.getMessage());
-        error.put("status:", String.valueOf(HttpStatus.UNAUTHORIZED.value()));
+        error.put("title", failed.getMessage());
+        error.put("status", String.valueOf(HttpStatus.UNAUTHORIZED.value()));
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
         new ObjectMapper().writeValue(response.getOutputStream(), error);
     }

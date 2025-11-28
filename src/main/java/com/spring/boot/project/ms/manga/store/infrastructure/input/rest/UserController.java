@@ -23,4 +23,10 @@ public class UserController {
         userService.createUser(userRequestDto);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
+
+    @PostMapping("/sign-up/admin")
+    public ResponseEntity<HttpStatus> createAdmin(@RequestBody @Valid UserRequestDto userRequestDto) {
+        userService.createAdmin(userRequestDto);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
 }

@@ -103,8 +103,16 @@ public record User(
         }
 
         public User build() {
-            return new User(this.id, this.identityDocument, this.email, this.password, this.name,
-                    this.lastname, this.phone, this.address, this.isActive, this.roles);
+            return new User(this.id,
+                    this.identityDocument,
+                    this.email, this.password,
+                    this.name,
+                    this.lastname,
+                    this.phone,
+                    this.address,
+                    this.isActive,
+                    this.roles
+            );
         }
     }
 }

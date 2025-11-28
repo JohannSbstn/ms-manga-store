@@ -5,13 +5,24 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
-import lombok.Data;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "roles")
-@Data
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class RoleEntity {
 
     @Id
@@ -25,5 +36,9 @@ public class RoleEntity {
     private String description;
 
     @Column(name = "creado_en")
+    @CreationTimestamp
     private LocalDateTime createdAt;
+
+    @ManyToMany(mappedBy = "roles")
+    private Set<UserEntity> usuarios = new HashSet<>();
 }
