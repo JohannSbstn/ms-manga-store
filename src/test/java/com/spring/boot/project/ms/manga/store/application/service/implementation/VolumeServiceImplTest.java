@@ -13,10 +13,9 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -35,9 +34,6 @@ class VolumeServiceImplTest {
         volumeService = new VolumeServiceImpl(volumePortIn, mangaPortIn);
     }
 
-    // --------------------------------------------------------------------
-    // TEST: create(...)
-    // --------------------------------------------------------------------
     @Test
     void create_ShouldCallVolumePortInWithCorrectVolume() {
         // Given
@@ -89,9 +85,6 @@ class VolumeServiceImplTest {
         assertEquals(manga, captured.getManga());
     }
 
-    // --------------------------------------------------------------------
-    // TEST: switchVolumeStatus(...)
-    // --------------------------------------------------------------------
     @Test
     void switchVolumeStatus_ShouldToggleAvailability_AndUpdateVolume() {
         // Given
@@ -115,7 +108,7 @@ class VolumeServiceImplTest {
                 .publicationDate(LocalDate.of(2020, 3, 15))
                 .pages(180)
                 .language("EN")
-                .available(true) // Se debe cambiar a false
+                .available(true)
                 .manga(manga)
                 .build();
 
@@ -134,10 +127,9 @@ class VolumeServiceImplTest {
         assertNotNull(updated);
         assertEquals(existing.getId(), updated.getId());
         assertEquals(existing.getIsbn(), updated.getIsbn());
-        assertFalse(updated.getAvailable()); // Estado invertido correctamente
+        assertFalse(updated.getAvailable());
         assertEquals(manga, updated.getManga());
 
-        // Validar que no cambió ningún otro campo
         assertEquals(existing.getVolumeNumber(), updated.getVolumeNumber());
         assertEquals(existing.getTitle(), updated.getTitle());
         assertEquals(existing.getDescription(), updated.getDescription());
