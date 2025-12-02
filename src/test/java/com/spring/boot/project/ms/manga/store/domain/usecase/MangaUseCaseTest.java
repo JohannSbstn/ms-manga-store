@@ -1,5 +1,7 @@
 package com.spring.boot.project.ms.manga.store.domain.usecase;
 
+import com.spring.boot.project.ms.manga.store.domain.common.Page;
+import com.spring.boot.project.ms.manga.store.domain.common.RequestPage;
 import com.spring.boot.project.ms.manga.store.domain.model.Manga;
 import com.spring.boot.project.ms.manga.store.domain.output.MangaPortOut;
 import org.junit.jupiter.api.Test;
@@ -7,13 +9,10 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -60,15 +59,22 @@ class MangaUseCaseTest {
 
     @Test
     void getAll_ShouldDelegateToPortOut() {
-        Pageable pageable = mock(Pageable.class);
-        Page<Manga> pageMock = mock(Page.class);
+        RequestPage request = new RequestPage(0, 10);
 
-        when(mangaPortOut.getAll(pageable)).thenReturn(pageMock);
+        Page<Manga> domainPage = new Page<>(
+                java.util.List.of(),
+                0,
+                10,
+                0,
+                0
+        );
 
-        Page<Manga> result = mangaUseCase.getAll(pageable);
+        when(mangaPortOut.getAll(request)).thenReturn(domainPage);
+
+        Page<Manga> result = mangaUseCase.getAll(request);
 
         assertNotNull(result);
-        assertEquals(pageMock, result);
-        verify(mangaPortOut, times(1)).getAll(pageable);
+        assertEquals(domainPage, result);
+        verify(mangaPortOut, times(1)).getAll(request);
     }
 }

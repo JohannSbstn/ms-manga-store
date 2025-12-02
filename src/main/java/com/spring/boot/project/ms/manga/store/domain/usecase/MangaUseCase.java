@@ -1,10 +1,10 @@
 package com.spring.boot.project.ms.manga.store.domain.usecase;
 
+import com.spring.boot.project.ms.manga.store.domain.common.Page;
+import com.spring.boot.project.ms.manga.store.domain.common.RequestPage;
 import com.spring.boot.project.ms.manga.store.domain.input.MangaPortIn;
 import com.spring.boot.project.ms.manga.store.domain.model.Manga;
 import com.spring.boot.project.ms.manga.store.domain.output.MangaPortOut;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 
 public class MangaUseCase implements MangaPortIn {
     private final MangaPortOut mangaPortOut;
@@ -19,7 +19,7 @@ public class MangaUseCase implements MangaPortIn {
     }
 
     @Override
-    public Page<Manga> getAll(Pageable pageable) {
-        return mangaPortOut.getAll(pageable);
+    public Page<Manga> getAll(RequestPage pageRequest) {
+        return mangaPortOut.getAll(pageRequest);
     }
 }

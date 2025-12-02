@@ -3,12 +3,12 @@ package com.spring.boot.project.ms.manga.store.application.service.implementatio
 import com.spring.boot.project.ms.manga.store.application.dto.response.MangaResponseDto;
 import com.spring.boot.project.ms.manga.store.application.mapper.MangaDtoMapper;
 import com.spring.boot.project.ms.manga.store.application.service.MangaService;
+import com.spring.boot.project.ms.manga.store.domain.common.Page;
+import com.spring.boot.project.ms.manga.store.domain.common.RequestPage;
 import com.spring.boot.project.ms.manga.store.domain.exception.MangaNotExistException;
 import com.spring.boot.project.ms.manga.store.domain.input.MangaPortIn;
 import com.spring.boot.project.ms.manga.store.domain.model.Manga;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -35,7 +35,8 @@ public class MangaServiceImpl implements MangaService {
     }
 
     @Override
-    public Page<MangaResponseDto> getAll(Pageable pageable) {
-        return mangaPortIn.getAll(pageable).map(mangaDtoMapper::toMangaResponseDtos);
+    public Page<MangaResponseDto> getAll(RequestPage pageRequest) {
+        return mangaPortIn.getAll(pageRequest)
+                .map(mangaDtoMapper::toMangaResponseDtos);
     }
 }

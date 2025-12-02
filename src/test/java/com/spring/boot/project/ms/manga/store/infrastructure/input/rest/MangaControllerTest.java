@@ -64,7 +64,15 @@ class MangaControllerTest {
                 LocalDate.now()
         );
 
-        Page<MangaResponseDto> page = new PageImpl<>(List.of(dto), PageRequest.of(0, 10), 1);
+        com.spring.boot.project.ms.manga.store.domain.common.Page<MangaResponseDto> page =
+                new com.spring.boot.project.ms.manga.store.domain.common.Page<>(
+                        List.of(dto),
+                        0,
+                        10,
+                        1,
+                        1
+                );
+
 
         Mockito.when(mangaService.getAll(any())).thenReturn(page);
 

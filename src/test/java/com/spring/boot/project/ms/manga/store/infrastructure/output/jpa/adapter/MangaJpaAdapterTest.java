@@ -1,5 +1,6 @@
 package com.spring.boot.project.ms.manga.store.infrastructure.output.jpa.adapter;
 
+import com.spring.boot.project.ms.manga.store.domain.common.RequestPage;
 import com.spring.boot.project.ms.manga.store.domain.exception.MangaNotExistException;
 import com.spring.boot.project.ms.manga.store.domain.model.Manga;
 import com.spring.boot.project.ms.manga.store.infrastructure.output.jpa.entity.MangaEntity;
@@ -10,7 +11,11 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.data.domain.*;
+
+import com.spring.boot.project.ms.manga.store.domain.common.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 import java.util.Optional;
@@ -52,8 +57,8 @@ class MangaJpaAdapterTest {
         // Assert
         assertNotNull(result);
         assertEquals("One Piece", result.title());
-        verify(mangaRepository, times(1)).findById(1L);
-        verify(mangaEntityMapper, times(1)).toModel(entity);
+        verify(mangaRepository).findById(1L);
+        verify(mangaEntityMapper).toModel(entity);
     }
 
     @Test
@@ -66,12 +71,14 @@ class MangaJpaAdapterTest {
                 assertThrows(MangaNotExistException.class, () -> mangaJpaAdapter.getById(99L));
 
         assertEquals("the manga with id: 99 is not registered", exception.getMessage());
-        verify(mangaRepository, times(1)).findById(99L);
+        verify(mangaRepository).findById(99L);
         verifyNoInteractions(mangaEntityMapper);
     }
 
     @Test
     void getAll_ShouldReturnPageOfManga() {
+        // Arrange
+        RequestPage request = new RequestPage(0, 10);
         Pageable pageable = PageRequest.of(0, 10);
 
         MangaEntity entity = new MangaEntity();
@@ -83,18 +90,24 @@ class MangaJpaAdapterTest {
                 .totalVolumes(74)
                 .build();
 
-        Page<MangaEntity> entityPage = new PageImpl<>(List.of(entity), pageable, 1);
+        org.springframework.data.domain.Page<MangaEntity> entityPage =
+                new PageImpl<>(List.of(entity), pageable, 1);
 
         when(mangaRepository.findAll(pageable)).thenReturn(entityPage);
         when(mangaEntityMapper.toModel(entity)).thenReturn(model);
 
-        Page<Manga> result = mangaJpaAdapter.getAll(pageable);
+        // Act
+        Page<Manga> result = mangaJpaAdapter.getAll(request);
 
+        // Assert
         assertNotNull(result);
-        assertEquals(1, result.getTotalElements());
-        assertEquals("Bleach", result.getContent().get(0).title());
+        assertEquals(1, result.totalElements());
+        assertEquals(1, result.totalPages());
+        assertEquals(0, result.pageNumber());
+        assertEquals(10, result.pageSize());
+        assertEquals("Bleach", result.content().get(0).title());
 
-        verify(mangaRepository, times(1)).findAll(pageable);
-        verify(mangaEntityMapper, times(1)).toModel(entity);
+        verify(mangaRepository).findAll(pageable);
+        verify(mangaEntityMapper).toModel(entity);
     }
 }
