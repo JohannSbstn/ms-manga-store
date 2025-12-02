@@ -10,17 +10,14 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.domain.*;
 
+import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.anyLong;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.verifyNoInteractions;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class MangaJpaAdapterTest {
@@ -65,13 +62,39 @@ class MangaJpaAdapterTest {
         when(mangaRepository.findById(anyLong())).thenReturn(Optional.empty());
 
         // Act + Assert
-        MangaNotExistException exception = assertThrows(
-                MangaNotExistException.class,
-                () -> mangaJpaAdapter.getById(99L)
-        );
+        MangaNotExistException exception =
+                assertThrows(MangaNotExistException.class, () -> mangaJpaAdapter.getById(99L));
 
         assertEquals("the manga with id: 99 is not registered", exception.getMessage());
         verify(mangaRepository, times(1)).findById(99L);
         verifyNoInteractions(mangaEntityMapper);
+    }
+
+    @Test
+    void getAll_ShouldReturnPageOfManga() {
+        Pageable pageable = PageRequest.of(0, 10);
+
+        MangaEntity entity = new MangaEntity();
+        Manga model = Manga.builder()
+                .id(1L)
+                .title("Bleach")
+                .author("Tite Kubo")
+                .description("Soul reapers story")
+                .totalVolumes(74)
+                .build();
+
+        Page<MangaEntity> entityPage = new PageImpl<>(List.of(entity), pageable, 1);
+
+        when(mangaRepository.findAll(pageable)).thenReturn(entityPage);
+        when(mangaEntityMapper.toModel(entity)).thenReturn(model);
+
+        Page<Manga> result = mangaJpaAdapter.getAll(pageable);
+
+        assertNotNull(result);
+        assertEquals(1, result.getTotalElements());
+        assertEquals("Bleach", result.getContent().get(0).title());
+
+        verify(mangaRepository, times(1)).findAll(pageable);
+        verify(mangaEntityMapper, times(1)).toModel(entity);
     }
 }

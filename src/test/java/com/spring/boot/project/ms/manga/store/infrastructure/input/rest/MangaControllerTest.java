@@ -6,12 +6,17 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.time.LocalDate;
+import java.util.List;
 
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -46,5 +51,31 @@ class MangaControllerTest {
                 .andExpect(jsonPath("$.author").value("Masashi Kishimoto"))
                 .andExpect(jsonPath("$.description").value("A ninja who wants to become Hokage"))
                 .andExpect(jsonPath("$.totalVolumes").value(72));
+    }
+
+    @Test
+    void getAll_ShouldReturn200AndPageResponse() throws Exception {
+
+        MangaResponseDto dto = new MangaResponseDto(
+                "One Piece",
+                "Eiichiro Oda",
+                "Pirate adventures",
+                100,
+                LocalDate.now()
+        );
+
+        Page<MangaResponseDto> page = new PageImpl<>(List.of(dto), PageRequest.of(0, 10), 1);
+
+        Mockito.when(mangaService.getAll(any())).thenReturn(page);
+
+        mockMvc.perform(get("/manga")
+                        .param("page", "0")
+                        .param("size", "10")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.content[0].title").value("One Piece"))
+                .andExpect(jsonPath("$.content[0].author").value("Eiichiro Oda"))
+                .andExpect(jsonPath("$.content[0].totalVolumes").value(100))
+                .andExpect(jsonPath("$.totalElements").value(1));
     }
 }

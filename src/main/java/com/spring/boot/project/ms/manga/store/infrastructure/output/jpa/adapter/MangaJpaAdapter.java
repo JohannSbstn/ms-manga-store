@@ -6,6 +6,8 @@ import com.spring.boot.project.ms.manga.store.domain.output.MangaPortOut;
 import com.spring.boot.project.ms.manga.store.infrastructure.output.jpa.mapper.MangaEntityMapper;
 import com.spring.boot.project.ms.manga.store.infrastructure.output.jpa.repository.MangaRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -19,5 +21,10 @@ public class MangaJpaAdapter implements MangaPortOut {
         return mangaRepository.findById(mangaId)
                 .map(mangaEntityMapper::toModel)
                 .orElseThrow(() -> new MangaNotExistException(mangaId));
+    }
+
+    @Override
+    public Page<Manga> getAll(Pageable pageable) {
+        return mangaRepository.findAll(pageable).map(mangaEntityMapper::toModel);
     }
 }
