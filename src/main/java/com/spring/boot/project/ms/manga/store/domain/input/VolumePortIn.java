@@ -6,4 +6,7 @@ public interface VolumePortIn {
 
     void create(Volume volume);
 
+    void update(Volume volume);
+
+    Volume getByIsbn(String isbn);
 }
