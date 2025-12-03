@@ -6,7 +6,7 @@ import java.time.LocalDate;
 public class Volume {
     private Long id;
     private String isbn;
-    private Integer volumeNumber;
+    private Double volumeNumber;
     private String title;
     private String description;
     private BigDecimal price;
@@ -41,7 +41,7 @@ public class Volume {
         return isbn;
     }
 
-    public Integer getVolumeNumber() {
+    public Double getVolumeNumber() {
         return volumeNumber;
     }
 
@@ -88,7 +88,7 @@ public class Volume {
     public static class VolumeBuilder {
         private Long id;
         private String isbn;
-        private Integer volumeNumber;
+        private Double volumeNumber;
         private String title;
         private String description;
         private BigDecimal price;
@@ -109,7 +109,7 @@ public class Volume {
             return this;
         }
 
-        public VolumeBuilder volumeNumber(Integer volumeNumber) {
+        public VolumeBuilder volumeNumber(Double volumeNumber) {
             this.volumeNumber = volumeNumber;
             return this;
         }

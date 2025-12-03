@@ -8,7 +8,6 @@ import com.spring.boot.project.ms.manga.store.infrastructure.output.jpa.mapper.V
 import com.spring.boot.project.ms.manga.store.infrastructure.output.jpa.repository.VolumeRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.ArgumentCaptor;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -32,11 +31,18 @@ class VolumeJpaAdapterTest {
     @Test
     void create_ShouldSaveVolumeEntity_WhenIsbnDoesNotExist() {
         // Given
-        Manga manga = new Manga(1L, "Attack on Titan", "Hajime Isayama", "Titans", 34, LocalDate.of(2009, 9, 9));
+        Manga manga = Manga.builder()
+                .id(1L)
+                .title("Attack on Titan")
+                .author("Hajime Isayama")
+                .description("Titans")
+                .totalVolumes(34.0)
+                .startDate(LocalDate.of(2009, 9, 9))
+                .build();
         Volume volume = Volume.builder()
                 .isbn("978-1234567890")
                 .title("Attack on Titan Vol. 5")
-                .volumeNumber(5)
+                .volumeNumber(5.0)
                 .price(BigDecimal.valueOf(49.99))
                 .manga(manga)
                 .build();
