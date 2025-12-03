@@ -19,12 +19,12 @@ public class UserJpaAdapter implements UserPortOut {
 
     @Override
     public void create(User user) {
-        if (userRepository.existsByEmail(user.getEmail())) {
-            throw new UserEmailAlreadyExistsException(user.getEmail());
+        if (userRepository.existsByEmail(user.email())) {
+            throw new UserEmailAlreadyExistsException(user.email());
         }
 
-        if (userRepository.existsByIdentityDocument(user.getIdentityDocument())) {
-            throw new UserIdentityDocumentAlreadyExistsException(user.getIdentityDocument());
+        if (userRepository.existsByIdentityDocument(user.identityDocument())) {
+            throw new UserIdentityDocumentAlreadyExistsException(user.identityDocument());
         }
 
         UserEntity userEntity = userEntityMapper.toEntity(user);

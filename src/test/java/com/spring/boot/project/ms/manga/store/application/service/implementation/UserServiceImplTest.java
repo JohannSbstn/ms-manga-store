@@ -30,30 +30,36 @@ class UserServiceImplTest {
     @Test
     void createUser_WhenPasswordsMatch_ShouldCreateUser() {
         // Arrange
-        UserRequestDto userRequestDto = new UserRequestDto();
-        userRequestDto.setIdentityDocument("12345678");
-        userRequestDto.setEmail("test@example.com");
-        userRequestDto.setPassword("password123");
-        userRequestDto.setConfirmPassword("password123");
-        userRequestDto.setName("John");
-        userRequestDto.setLastname("Doe");
+        UserRequestDto userRequestDto = new UserRequestDto(
+                "12345678",                    // identityDocument
+                "test@example.com",            // email
+                "Password123!",                // password
+                "Password123!",                // confirmPassword
+                "John",                        // name
+                "Doe"                          // lastname
+        );
 
-        when(passwordEncoder.encode("password123")).thenReturn("encodedPassword");
+        when(passwordEncoder.encode("Password123!")).thenReturn("encodedPassword");
 
         // Act
         userServiceImpl.createUser(userRequestDto);
 
         // Assert
         verify(userPortIn).create(any(User.class));
-        verify(passwordEncoder).encode("password123");
+        verify(passwordEncoder).encode("Password123!");
     }
 
     @Test
     void createUser_WhenPasswordsDoNotMatch_ShouldThrowPasswordNotMatchException() {
         // Arrange
-        UserRequestDto userRequestDto = new UserRequestDto();
-        userRequestDto.setPassword("password123");
-        userRequestDto.setConfirmPassword("differentPassword");
+        UserRequestDto userRequestDto = new UserRequestDto(
+                "12345678",                    // identityDocument
+                "test@example.com",            // email
+                "Password123!",                // password
+                "DifferentPassword123!",       // confirmPassword (diferente)
+                "John",                        // name
+                "Doe"                          // lastname
+        );
 
         String expectedMessage = "Both password and confirm password should be the same";
 
@@ -71,9 +77,14 @@ class UserServiceImplTest {
     @Test
     void createAdmin_WhenPasswordsDoNotMatch_ShouldThrowPasswordNotMatchException() {
         // Arrange
-        UserRequestDto userRequestDto = new UserRequestDto();
-        userRequestDto.setPassword("admin123");
-        userRequestDto.setConfirmPassword("differentAdminPassword");
+        UserRequestDto userRequestDto = new UserRequestDto(
+                "12345678",                    // identityDocument
+                "admin@example.com",           // email
+                "Admin123!",                   // password
+                "DifferentAdmin123!",          // confirmPassword (diferente)
+                "Admin",                       // name
+                "User"                         // lastname
+        );
 
         String expectedMessage = "Both password and confirm password should be the same";
 

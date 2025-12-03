@@ -8,3 +8,9 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     hikari:
       connection-init-sql: SET NAMES utf8mb4 COLLATE utf8mb4_unicode_ci
+jwt:
+  access:
+    token:
+      secret: ${JWT_ACCESS_TOKEN_SECRET}
+      validity:
+        seconds: ${JWT_ACCESS_TOKEN_VALIDITY_SECONDS}
