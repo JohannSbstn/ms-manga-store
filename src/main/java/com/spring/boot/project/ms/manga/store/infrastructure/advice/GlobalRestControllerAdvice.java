@@ -59,7 +59,8 @@ public class GlobalRestControllerAdvice {
     }
 
     @ExceptionHandler(UserIdentityDocumentAlreadyExistsException.class)
-    public ResponseEntity<ErrorResponseDto> userIdentityDocumentAlreadyExists(UserIdentityDocumentAlreadyExistsException ex) {
+    public ResponseEntity<ErrorResponseDto> userIdentityDocumentAlreadyExists(
+            UserIdentityDocumentAlreadyExistsException ex) {
         ErrorResponseDto errorResponseDto = new ErrorResponseDto(
                 Integer.toString(HttpStatus.CONFLICT.value()),
                 LocalDateTime.now(),

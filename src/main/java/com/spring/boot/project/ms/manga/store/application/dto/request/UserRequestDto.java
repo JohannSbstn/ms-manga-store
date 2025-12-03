@@ -28,14 +28,16 @@ public record UserRequestDto(
         String email,
 
         @Schema(
-                description = "User password. Must contain 8-20 chars, at least one uppercase, one lowercase, one digit and one special character",
+                description = "User password. Must contain 8-20 chars, at least one uppercase, one lowercase, "
+                        + "one digit and one special character",
                 example = "Str0ngP@ss!"
         )
         @NotBlank(message = "Password is required")
         @Size(min = 8, max = 20, message = "Password must have between 8 and 20 characters")
         @Pattern(
                 regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$",
-                message = "Password must have at least one uppercase, one lowercase, one number and one special character"
+                message = "Password must have at least one uppercase, one lowercase, one number and one special "
+                        + "character"
         )
         String password,
 

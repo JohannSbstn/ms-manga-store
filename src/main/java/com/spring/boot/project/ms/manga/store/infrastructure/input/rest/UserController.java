@@ -32,34 +32,34 @@ public class UserController {
             description = "Creating User with its specific fields with role USER"
     )
     @ApiResponses(value = {
-            @ApiResponse(
-                    responseCode = "201",
-                    description = "User created successfully",
-                    content = @Content
+        @ApiResponse(
+                responseCode = "201",
+                description = "User created successfully",
+                content = @Content
             ),
-            @ApiResponse(
-                    responseCode = "400",
-                    description = "Validation error",
-                    content = @Content(
-                            mediaType = "application/json",
-                            schema = @Schema(implementation = GlobalRestControllerAdvice.ErrorResponseDto.class)
-                    )
+        @ApiResponse(
+                responseCode = "400",
+                description = "Validation error",
+                content = @Content(
+                        mediaType = "application/json",
+                        schema = @Schema(implementation = GlobalRestControllerAdvice.ErrorResponseDto.class)
+                )
             ),
-            @ApiResponse(
-                    responseCode = "409",
-                    description = "User already exists (email or identity document)",
-                    content = @Content(
-                            mediaType = "application/json",
-                            schema = @Schema(implementation = GlobalRestControllerAdvice.ErrorResponseDto.class)
-                    )
+        @ApiResponse(
+                responseCode = "409",
+                description = "User already exists (email or identity document)",
+                content = @Content(
+                        mediaType = "application/json",
+                        schema = @Schema(implementation = GlobalRestControllerAdvice.ErrorResponseDto.class)
+                )
             ),
-            @ApiResponse(
-                    responseCode = "500",
-                    description = "Internal server error",
-                    content = @Content(
-                            mediaType = "application/json",
-                            schema = @Schema(implementation = GlobalRestControllerAdvice.ErrorResponseDto.class)
-                    )
+        @ApiResponse(
+                responseCode = "500",
+                description = "Internal server error",
+                content = @Content(
+                        mediaType = "application/json",
+                        schema = @Schema(implementation = GlobalRestControllerAdvice.ErrorResponseDto.class)
+                )
             )
     })
     public ResponseEntity<HttpStatus> createUser(@RequestBody @Valid UserRequestDto userRequestDto) {
