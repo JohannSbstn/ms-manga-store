@@ -59,14 +59,14 @@ public class GlobalRestControllerAdvice {
     }
 
     @ExceptionHandler(UserIdentityDocumentAlreadyExistsException.class)
-    public ResponseEntity<ErrorResponseDto> userDniAlreadyExists(UserIdentityDocumentAlreadyExistsException ex) {
+    public ResponseEntity<ErrorResponseDto> userIdentityDocumentAlreadyExists(UserIdentityDocumentAlreadyExistsException ex) {
         ErrorResponseDto errorResponseDto = new ErrorResponseDto(
-                Integer.toString(HttpStatus.INTERNAL_SERVER_ERROR.value()),
+                Integer.toString(HttpStatus.CONFLICT.value()),
                 LocalDateTime.now(),
                 ex.getMessage(),
                 ex.getClass().getSimpleName()
         );
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorResponseDto);
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(errorResponseDto);
     }
 
     @ExceptionHandler(Exception.class)
