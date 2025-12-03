@@ -33,14 +33,14 @@ class MangaServiceImplTest {
                 .title("One Piece")
                 .author("Eiichiro Oda")
                 .description("Pirates adventure")
-                .totalVolumes(100)
+                .totalVolumes(100.0)
                 .startDate(LocalDate.of(1997, 7, 22))
                 .build();
 
         when(mangaPortIn.getById(mangaId)).thenReturn(manga);
 
         // Act
-        MangaResponseDto response = mangaService.get(mangaId);
+        MangaResponseDto response = mangaService.getById(mangaId);
 
         // Assert
         assertNotNull(response);
@@ -60,7 +60,7 @@ class MangaServiceImplTest {
         when(mangaPortIn.getById(mangaId)).thenReturn(null);
 
         // Act & Assert
-        assertThrows(MangaNotExistException.class, () -> mangaService.get(mangaId));
+        assertThrows(MangaNotExistException.class, () -> mangaService.getById(mangaId));
 
         verify(mangaPortIn, times(1)).getById(mangaId);
     }
