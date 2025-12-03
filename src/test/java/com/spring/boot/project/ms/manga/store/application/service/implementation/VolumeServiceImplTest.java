@@ -13,10 +13,9 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -35,15 +34,12 @@ class VolumeServiceImplTest {
         volumeService = new VolumeServiceImpl(volumePortIn, mangaPortIn);
     }
 
-    // --------------------------------------------------------------------
-    // TEST: create(...)
-    // --------------------------------------------------------------------
     @Test
     void create_ShouldCallVolumePortInWithCorrectVolume() {
         // Given
         VolumeRequestDto dto = new VolumeRequestDto(
                 "978-1234567890",
-                5,
+                5.0,
                 "Attack on Titan Vol. 5",
                 "Eren faces new challenges...",
                 BigDecimal.valueOf(49.99),
@@ -59,7 +55,7 @@ class VolumeServiceImplTest {
                 .title("Attack on Titan")
                 .author("Hajime Isayama")
                 .description("Humanity vs Titans")
-                .totalVolumes(34)
+                .totalVolumes(34.0)
                 .startDate(LocalDate.of(2009, 9, 9))
                 .build();
 
@@ -89,9 +85,6 @@ class VolumeServiceImplTest {
         assertEquals(manga, captured.manga());
     }
 
-    // --------------------------------------------------------------------
-    // TEST: switchVolumeStatus(...)
-    // --------------------------------------------------------------------
     @Test
     void switchVolumeStatus_ShouldToggleAvailability_AndUpdateVolume() {
         // Given
@@ -100,14 +93,14 @@ class VolumeServiceImplTest {
                 .title("One Piece")
                 .author("Oda")
                 .description("Pirates")
-                .totalVolumes(100)
+                .totalVolumes(100.0)
                 .startDate(LocalDate.of(1997, 7, 22))
                 .build();
 
         Volume existing = Volume.builder()
                 .id(10L)
                 .isbn("999-1112223334")
-                .volumeNumber(20)
+                .volumeNumber(20.0)
                 .title("One Piece Vol. 20")
                 .description("Arc")
                 .price(BigDecimal.TEN)
@@ -115,7 +108,7 @@ class VolumeServiceImplTest {
                 .publicationDate(LocalDate.of(2020, 3, 15))
                 .pages(180)
                 .language("EN")
-                .available(true) // Se debe cambiar a false
+                .available(true)
                 .manga(manga)
                 .build();
 

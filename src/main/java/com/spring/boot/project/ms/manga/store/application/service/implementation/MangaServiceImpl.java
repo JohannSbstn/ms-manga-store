@@ -16,7 +16,7 @@ public class MangaServiceImpl implements MangaService {
     private final MangaPortIn mangaPortIn;
 
     @Override
-    public MangaResponseDto get(Long mangaId) {
+    public MangaResponseDto getById(Long mangaId) {
         Manga manga = mangaPortIn.getById(mangaId);
         if (manga == null) {
             throw new MangaNotExistException(mangaId);

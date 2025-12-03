@@ -36,7 +36,7 @@ class VolumeControllerTest {
     @BeforeEach
     void setUp() {
         dto = new VolumeRequestDto("978-1234567890",
-                1,
+                1.0,
                 "Attack on Titan Vol. 1",
                 "First volume of AOT",
                 BigDecimal.valueOf(49.99),

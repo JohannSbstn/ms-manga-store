@@ -1,6 +1,5 @@
 package com.spring.boot.project.ms.manga.store.infrastructure.output.jpa.mapper;
 
-import com.spring.boot.project.ms.manga.store.domain.model.Manga;
 import com.spring.boot.project.ms.manga.store.domain.model.Volume;
 import com.spring.boot.project.ms.manga.store.infrastructure.output.jpa.entity.VolumeEntity;
 import org.mapstruct.Mapper;
@@ -11,14 +10,8 @@ import org.mapstruct.ReportingPolicy;
         unmappedTargetPolicy = ReportingPolicy.IGNORE,
         unmappedSourcePolicy = ReportingPolicy.IGNORE)
 public interface VolumeEntityMapper {
-    @Mapping(target = "manga", expression = "java(getManga(volumeEntity))")
+    @Mapping(target = "manga.id", source = "mangaId")
     Volume toModel(VolumeEntity volumeEntity);
 
     VolumeEntity toEntity(Volume volume);
-
-    default Manga getManga(VolumeEntity volumeEntity) {
-        return Manga.builder()
-                .id(volumeEntity.getMangaId())
-                .build();
-    }
 }

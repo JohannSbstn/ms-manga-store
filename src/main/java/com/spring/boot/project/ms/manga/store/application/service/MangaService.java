@@ -4,5 +4,5 @@ import com.spring.boot.project.ms.manga.store.application.dto.response.MangaResp
 
 public interface MangaService {
 
-    MangaResponseDto get(Long mangaId);
+    MangaResponseDto getById(Long mangaId);
 }
