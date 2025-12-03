@@ -11,6 +11,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
 import java.time.LocalDate;
 
 @Entity
@@ -36,7 +37,7 @@ public class MangaEntity {
     private String description;
 
     @Column(name = "total_volumenes")
-    private Integer totalVolumes;
+    private Double totalVolumes;
 
     @Column(name = "fecha_inicio")
     private LocalDate startDate;

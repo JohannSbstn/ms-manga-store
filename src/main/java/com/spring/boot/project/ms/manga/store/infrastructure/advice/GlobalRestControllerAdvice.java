@@ -2,15 +2,16 @@ package com.spring.boot.project.ms.manga.store.infrastructure.advice;
 
 import com.spring.boot.project.ms.manga.store.application.exception.PasswordNotMatchException;
 import com.spring.boot.project.ms.manga.store.domain.exception.MangaNotExistException;
-import com.spring.boot.project.ms.manga.store.domain.exception.UserIdentityDocumentAlreadyExistsException;
 import com.spring.boot.project.ms.manga.store.domain.exception.UserEmailAlreadyExistsException;
-import lombok.extern.slf4j.Slf4j;
+import com.spring.boot.project.ms.manga.store.domain.exception.UserIdentityDocumentAlreadyExistsException;
 import com.spring.boot.project.ms.manga.store.domain.exception.VolumeAlreadyRegisteredException;
+import com.spring.boot.project.ms.manga.store.domain.exception.VolumeNotExistsException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import lombok.extern.slf4j.Slf4j;
 
 import java.time.LocalDateTime;
 import java.util.stream.Collectors;
@@ -101,6 +102,18 @@ public class GlobalRestControllerAdvice {
     @ExceptionHandler(MangaNotExistException.class)
     public ResponseEntity<ErrorResponseDto> handleMangaNotExistException(
             MangaNotExistException ex) {
+        ErrorResponseDto errorResponseDto = new ErrorResponseDto(
+                Integer.toString(HttpStatus.NOT_FOUND.value()),
+                LocalDateTime.now(),
+                ex.getMessage(),
+                ex.getClass().getSimpleName()
+        );
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponseDto);
+    }
+
+    @ExceptionHandler(VolumeNotExistsException.class)
+    public ResponseEntity<ErrorResponseDto> handleVolumeNotExitsException(
+            VolumeNotExistsException ex) {
         ErrorResponseDto errorResponseDto = new ErrorResponseDto(
                 Integer.toString(HttpStatus.NOT_FOUND.value()),
                 LocalDateTime.now(),

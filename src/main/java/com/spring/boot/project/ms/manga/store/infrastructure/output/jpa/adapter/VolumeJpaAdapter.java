@@ -1,6 +1,7 @@
 package com.spring.boot.project.ms.manga.store.infrastructure.output.jpa.adapter;
 
 import com.spring.boot.project.ms.manga.store.domain.exception.VolumeAlreadyRegisteredException;
+import com.spring.boot.project.ms.manga.store.domain.exception.VolumeNotExistsException;
 import com.spring.boot.project.ms.manga.store.domain.model.Volume;
 import com.spring.boot.project.ms.manga.store.domain.output.VolumePortOut;
 import com.spring.boot.project.ms.manga.store.infrastructure.output.jpa.entity.VolumeEntity;
@@ -21,5 +22,19 @@ public class VolumeJpaAdapter implements VolumePortOut {
         VolumeEntity volumeEntity = volumeEntityMapper.toEntity(volume);
         volumeEntity.setMangaId(volume.getManga().getId());
         volumeRepository.save(volumeEntity);
+    }
+
+    @Override
+    public void update(Volume volume) {
+        VolumeEntity volumeEntity = volumeEntityMapper.toEntity(volume);
+        volumeEntity.setMangaId(volume.getManga().getId());
+        volumeRepository.save(volumeEntity);
+    }
+
+    @Override
+    public Volume getByIsbn(String isbn) {
+        return volumeRepository.findByIsbn(isbn)
+                .map(volumeEntityMapper::toModel)
+                .orElseThrow(() -> new VolumeNotExistsException(isbn));
     }
 }

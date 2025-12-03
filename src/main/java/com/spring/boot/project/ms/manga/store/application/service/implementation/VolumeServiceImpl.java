@@ -18,20 +18,40 @@ public class VolumeServiceImpl implements VolumeService {
 
     @Override
     public void create(VolumeRequestDto volumeRequestDto) {
-        Manga manga = mangaPortIn.getById(volumeRequestDto.getMangaId());
+        Manga manga = mangaPortIn.getById(volumeRequestDto.mangaId());
         Volume volume = Volume.builder()
-                .isbn(volumeRequestDto.getIsbn())
-                .volumeNumber(volumeRequestDto.getVolumeNumber())
-                .title(volumeRequestDto.getTitle())
-                .description(volumeRequestDto.getDescription())
-                .price(volumeRequestDto.getPrice())
-                .stock(volumeRequestDto.getStock())
-                .publicationDate(volumeRequestDto.getPublicationDate())
-                .pages(volumeRequestDto.getPages())
-                .language(volumeRequestDto.getLanguage())
+                .isbn(volumeRequestDto.isbn())
+                .volumeNumber(volumeRequestDto.volumeNumber())
+                .title(volumeRequestDto.title())
+                .description(volumeRequestDto.description())
+                .price(volumeRequestDto.price())
+                .stock(volumeRequestDto.stock())
+                .publicationDate(volumeRequestDto.publicationDate())
+                .pages(volumeRequestDto.pages())
+                .language(volumeRequestDto.language())
                 .available(true)
                 .manga(manga)
                 .build();
         volumePortIn.create(volume);
+    }
+
+    @Override
+    public void switchVolumeStatus(String isbn) {
+        Volume oldVolume = volumePortIn.getByIsbn(isbn);
+        Volume newVolume = Volume.builder()
+                .id(oldVolume.getId())
+                .isbn(oldVolume.getIsbn())
+                .volumeNumber(oldVolume.getVolumeNumber())
+                .title(oldVolume.getTitle())
+                .description(oldVolume.getDescription())
+                .price(oldVolume.getPrice())
+                .stock(oldVolume.getStock())
+                .publicationDate(oldVolume.getPublicationDate())
+                .pages(oldVolume.getPages())
+                .language(oldVolume.getLanguage())
+                .available(!oldVolume.getAvailable())
+                .manga(mangaPortIn.getById(oldVolume.getManga().getId()))
+                .build();
+        volumePortIn.update(newVolume);
     }
 }
