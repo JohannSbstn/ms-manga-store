@@ -7,6 +7,7 @@ import com.spring.boot.project.ms.manga.store.domain.common.RequestPage;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -25,7 +26,7 @@ public class MangaController {
     }
 
     @GetMapping
-    public ResponseEntity<Page<MangaResponseDto>> getAll(RequestPage pageRequest) {
+    public ResponseEntity<Page<MangaResponseDto>> getAll(@ModelAttribute RequestPage pageRequest) {
         return ResponseEntity.ok(mangaService.getAll(pageRequest));
 
     }
