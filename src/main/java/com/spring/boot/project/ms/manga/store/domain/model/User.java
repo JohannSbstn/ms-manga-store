@@ -2,74 +2,26 @@ package com.spring.boot.project.ms.manga.store.domain.model;
 
 import java.util.EnumSet;
 
-public class User {
+public record User(
+        Long id,
+        String identityDocument,
+        String email,
+        String password,
+        String name,
+        String lastname,
+        String phone,
+        String address,
+        boolean isActive,
+        EnumSet<Role> roles
+) {
 
-    private Long id;
-    private String identityDocument;
-    private String email;
-    private String password;
-    private String name;
-    private String lastname;
-    private String phone;
-    private String address;
-    private boolean isActive;
-    private EnumSet<Role> roles;
-
-    private User(UserBuilder userBuilder) {
-        this.id = userBuilder.id;
-        this.identityDocument = userBuilder.identityDocument;
-        this.email = userBuilder.email;
-        this.password = userBuilder.password;
-        this.name = userBuilder.name;
-        this.lastname = userBuilder.lastname;
-        this.phone = userBuilder.phone;
-        this.address = userBuilder.address;
-        this.isActive = userBuilder.isActive;
-        this.roles = userBuilder.roles;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public String getIdentityDocument() {
-        return identityDocument;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getLastname() {
-        return lastname;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public boolean isActive() {
-        return isActive;
-    }
-
-    public EnumSet<Role> getRoles() {
-        return roles != null ? EnumSet.copyOf(roles) : null;
-    }
 
     public static UserBuilder builder() {
         return new UserBuilder();
+    }
+
+    public UserBuilder toBuilder() {
+        return new UserBuilder(this);
     }
 
     public static class UserBuilder {
@@ -83,6 +35,22 @@ public class User {
         private String address;
         private boolean isActive;
         private EnumSet<Role> roles;
+
+        public UserBuilder() {
+        }
+
+        public UserBuilder(User user) {
+            this.id = user.id;
+            this.identityDocument = user.identityDocument;
+            this.email = user.email;
+            this.password = user.password;
+            this.name = user.name;
+            this.lastname = user.lastname;
+            this.phone = user.phone;
+            this.address = user.address;
+            this.isActive = user.isActive;
+            this.roles = user.roles;
+        }
 
         public UserBuilder id(Long id) {
             this.id = id;
@@ -135,7 +103,8 @@ public class User {
         }
 
         public User build() {
-            return new User(this);
+            return new User(this.id, this.identityDocument, this.email, this.password, this.name,
+                    this.lastname, this.phone, this.address, this.isActive, this.roles);
         }
     }
 }

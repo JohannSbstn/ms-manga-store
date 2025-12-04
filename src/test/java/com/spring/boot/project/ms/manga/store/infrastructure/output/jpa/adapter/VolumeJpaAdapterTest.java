@@ -42,7 +42,7 @@ class VolumeJpaAdapterTest {
         Volume volume = Volume.builder()
                 .isbn("978-1234567890")
                 .title("Attack on Titan Vol. 5")
-                .volumeNumber(5)
+                .volumeNumber(5.0)
                 .price(BigDecimal.valueOf(49.99))
                 .manga(manga)
                 .build();

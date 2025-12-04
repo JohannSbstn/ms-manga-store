@@ -32,7 +32,7 @@ public class VolumeEntity {
     private String isbn;
 
     @Column(name = "numero_volumen")
-    private Integer volumeNumber;
+    private Double volumeNumber;
 
     @Column(name = "titulo")
     private String title;

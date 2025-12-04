@@ -3,10 +3,13 @@ package com.spring.boot.project.ms.manga.store.infrastructure.input.rest;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.spring.boot.project.ms.manga.store.application.dto.request.VolumeRequestDto;
 import com.spring.boot.project.ms.manga.store.application.service.VolumeService;
+import com.spring.boot.project.ms.manga.store.infrastructure.configuration.security.TokenService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
+import org.springframework.boot.autoconfigure.security.servlet.SecurityFilterAutoConfiguration;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
@@ -19,8 +22,17 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@WebMvcTest(VolumeController.class)
+@WebMvcTest(
+        controllers = VolumeController.class,
+        excludeAutoConfiguration = {
+                SecurityAutoConfiguration.class,
+                SecurityFilterAutoConfiguration.class
+        }
+)
 class VolumeControllerTest {
+
+    @MockitoBean
+    private TokenService tokenService;
 
     @Autowired
     private MockMvc mockMvc;
@@ -36,7 +48,7 @@ class VolumeControllerTest {
     @BeforeEach
     void setUp() {
         dto = new VolumeRequestDto("978-1234567890",
-                1,
+                1.0,
                 "Attack on Titan Vol. 1",
                 "First volume of AOT",
                 BigDecimal.valueOf(49.99),

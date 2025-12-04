@@ -25,13 +25,15 @@ class UserControllerTest {
     @Test
     void createUser_ShouldReturnCreatedStatus() {
         // Arrange
-        UserRequestDto userRequestDto = new UserRequestDto();
-        userRequestDto.setIdentityDocument("12345678");
-        userRequestDto.setEmail("test@example.com");
-        userRequestDto.setPassword("password123");
-        userRequestDto.setConfirmPassword("password123");
-        userRequestDto.setName("John");
-        userRequestDto.setLastname("Doe");
+        UserRequestDto userRequestDto = new UserRequestDto(
+                "12345678",
+                "test@example.com",
+                "password123",
+                "password123",
+                "John",
+                "Doe"
+        );
+
 
         doNothing().when(userService).createUser(userRequestDto);
 

@@ -1,6 +1,5 @@
 package com.spring.boot.project.ms.manga.store.infrastructure.advice;
 
-import com.spring.boot.project.ms.manga.store.application.dto.response.ErrorResponseDto;
 import com.spring.boot.project.ms.manga.store.application.exception.PasswordNotMatchException;
 import com.spring.boot.project.ms.manga.store.domain.exception.MangaNotExistException;
 import com.spring.boot.project.ms.manga.store.domain.exception.UserEmailAlreadyExistsException;
@@ -12,10 +11,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import lombok.extern.slf4j.Slf4j;
 
 import java.time.LocalDateTime;
 import java.util.stream.Collectors;
 
+@Slf4j
 @RestControllerAdvice
 public class GlobalRestControllerAdvice {
 
@@ -59,14 +60,31 @@ public class GlobalRestControllerAdvice {
     }
 
     @ExceptionHandler(UserIdentityDocumentAlreadyExistsException.class)
-    public ResponseEntity<ErrorResponseDto> userDniAlreadyExists(UserIdentityDocumentAlreadyExistsException ex) {
+    public ResponseEntity<ErrorResponseDto> userIdentityDocumentAlreadyExists(
+            UserIdentityDocumentAlreadyExistsException ex) {
         ErrorResponseDto errorResponseDto = new ErrorResponseDto(
-                Integer.toString(HttpStatus.INTERNAL_SERVER_ERROR.value()),
+                Integer.toString(HttpStatus.CONFLICT.value()),
                 LocalDateTime.now(),
                 ex.getMessage(),
                 ex.getClass().getSimpleName()
         );
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorResponseDto);
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(errorResponseDto);
+    }
+
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<ErrorResponseDto> genericException(Exception ex) {
+        log.error(ex.getMessage());
+        HttpStatus httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
+        ErrorResponseDto errorResponseDto = new ErrorResponseDto(
+                Integer.toString(httpStatus.value()),
+                LocalDateTime.now(),
+                httpStatus.getReasonPhrase(),
+                ex.getClass().getSimpleName()
+        );
+        return ResponseEntity.status(httpStatus.value()).body(errorResponseDto);
+    }
+
+    public record ErrorResponseDto(String code, LocalDateTime timestamp, String description, String exception) {
     }
 
     @ExceptionHandler(VolumeAlreadyRegisteredException.class)
