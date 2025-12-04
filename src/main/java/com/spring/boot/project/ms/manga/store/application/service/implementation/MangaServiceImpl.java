@@ -37,6 +37,6 @@ public class MangaServiceImpl implements MangaService {
     @Override
     public Page<MangaResponseDto> getAll(RequestPage pageRequest) {
         return mangaPortIn.getAll(pageRequest)
-                .map(mangaDtoMapper::toMangaResponseDtos);
+                .map(mangaDtoMapper::toMangaResponseDto);
     }
 }

@@ -9,5 +9,5 @@ import org.mapstruct.ReportingPolicy;
         unmappedTargetPolicy = ReportingPolicy.IGNORE,
         unmappedSourcePolicy = ReportingPolicy.IGNORE)
 public interface MangaDtoMapper {
-    MangaResponseDto toMangaResponseDtos(Manga mangas);
+    MangaResponseDto toMangaResponseDto(Manga mangas);
 }

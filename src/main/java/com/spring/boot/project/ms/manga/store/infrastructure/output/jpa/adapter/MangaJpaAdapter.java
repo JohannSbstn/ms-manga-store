@@ -9,9 +9,7 @@ import com.spring.boot.project.ms.manga.store.infrastructure.output.jpa.mapper.M
 import com.spring.boot.project.ms.manga.store.infrastructure.output.jpa.repository.MangaRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.stereotype.Repository;
 
-@Repository
 @RequiredArgsConstructor
 public class MangaJpaAdapter implements MangaPortOut {
     private final MangaRepository mangaRepository;
