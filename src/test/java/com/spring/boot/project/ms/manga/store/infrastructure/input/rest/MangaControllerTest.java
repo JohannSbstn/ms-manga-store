@@ -2,9 +2,12 @@ package com.spring.boot.project.ms.manga.store.infrastructure.input.rest;
 
 import com.spring.boot.project.ms.manga.store.application.dto.response.MangaResponseDto;
 import com.spring.boot.project.ms.manga.store.application.service.MangaService;
+import com.spring.boot.project.ms.manga.store.infrastructure.configuration.security.TokenService;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
+import org.springframework.boot.autoconfigure.security.servlet.SecurityFilterAutoConfiguration;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.http.MediaType;
@@ -20,9 +23,17 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@WebMvcTest(MangaController.class)
-@AutoConfigureMockMvc(addFilters = false)
+@WebMvcTest(
+        controllers = MangaController.class,
+        excludeAutoConfiguration = {
+                SecurityAutoConfiguration.class,
+                SecurityFilterAutoConfiguration.class
+        }
+)
 class MangaControllerTest {
+
+    @MockitoBean
+    private TokenService tokenService;
 
     @Autowired
     private MockMvc mockMvc;
