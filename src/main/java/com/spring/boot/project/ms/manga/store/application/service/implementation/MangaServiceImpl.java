@@ -20,7 +20,7 @@ public class MangaServiceImpl implements MangaService {
     private final MangaDtoMapper mangaDtoMapper;
 
     @Override
-    public MangaResponseDto get(Long mangaId) {
+    public MangaResponseDto getById(Long mangaId) {
         Manga manga = mangaPortIn.getById(mangaId);
         if (manga == null) {
             throw new MangaNotExistException(mangaId);

@@ -85,9 +85,6 @@ class VolumeServiceImplTest {
         assertEquals(manga, captured.manga());
     }
 
-    // --------------------------------------------------------------------
-    // TEST: switchVolumeStatus(...)
-    // --------------------------------------------------------------------
     @Test
     void switchVolumeStatus_ShouldToggleAvailability_AndUpdateVolume() {
         // Given
@@ -129,10 +126,9 @@ class VolumeServiceImplTest {
 
         assertEquals(existing.id(), updated.id());
         assertEquals(existing.isbn(), updated.isbn());
-        assertFalse(updated.available()); // Estado invertido correctamente
+        assertFalse(updated.available());
         assertEquals(manga, updated.manga());
 
-        // Validar que no cambió ningún otro campo
         assertEquals(existing.volumeNumber(), updated.volumeNumber());
         assertEquals(existing.title(), updated.title());
         assertEquals(existing.description(), updated.description());

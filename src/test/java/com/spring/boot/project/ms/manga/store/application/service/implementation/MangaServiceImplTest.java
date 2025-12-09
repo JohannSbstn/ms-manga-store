@@ -10,8 +10,13 @@ import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 class MangaServiceImplTest {
 
@@ -42,15 +47,14 @@ class MangaServiceImplTest {
 
         when(mangaPortIn.getById(mangaId)).thenReturn(manga);
 
-        MangaResponseDto response = mangaService.get(mangaId);
+        MangaResponseDto response = mangaService.getById(mangaId);
 
         assertNotNull(response);
         assertEquals("One Piece", response.title());
         assertEquals("Eiichiro Oda", response.author());
         assertEquals("Pirates adventure", response.description());
         assertEquals(100, response.totalVolumes());
-        assertEquals(LocalDate.now(), response.startDate()); // service usa LocalDate.now()
-
+        assertEquals(LocalDate.now(), response.startDate());
         verify(mangaPortIn, times(1)).getById(mangaId);
     }
 
@@ -59,7 +63,7 @@ class MangaServiceImplTest {
         Long mangaId = 1L;
         when(mangaPortIn.getById(mangaId)).thenReturn(null);
 
-        assertThrows(MangaNotExistException.class, () -> mangaService.get(mangaId));
+        assertThrows(MangaNotExistException.class, () -> mangaService.getById(mangaId));
 
         verify(mangaPortIn, times(1)).getById(mangaId);
     }

@@ -48,11 +48,11 @@ class MangaControllerTest {
                 "Naruto",
                 "Masashi Kishimoto",
                 "A ninja who wants to become Hokage",
-                72,
+                72.0,
                 LocalDate.now()
         );
 
-        Mockito.when(mangaService.get(anyLong())).thenReturn(response);
+        Mockito.when(mangaService.getById(anyLong())).thenReturn(response);
 
         mockMvc.perform(get("/manga/1")
                         .contentType(MediaType.APPLICATION_JSON))

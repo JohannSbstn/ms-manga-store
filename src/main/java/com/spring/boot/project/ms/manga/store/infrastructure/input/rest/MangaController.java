@@ -21,7 +21,7 @@ public class MangaController {
 
     @GetMapping("/{id}")
     public ResponseEntity<MangaResponseDto> getMangaById(@PathVariable Long id) {
-        MangaResponseDto mangaResponseDto = mangaService.get(id);
+        MangaResponseDto mangaResponseDto = mangaService.getById(id);
         return ResponseEntity.ok(mangaResponseDto);
     }
 

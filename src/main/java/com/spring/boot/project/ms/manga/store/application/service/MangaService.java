@@ -6,7 +6,7 @@ import com.spring.boot.project.ms.manga.store.domain.common.RequestPage;
 
 public interface MangaService {
 
-    MangaResponseDto get(Long mangaId);
-
     Page<MangaResponseDto> getAll(RequestPage pageRequest);
+
+    MangaResponseDto getById(Long mangaId);
 }

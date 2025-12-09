@@ -45,7 +45,7 @@ class MangaJpaAdapterTest {
                 .title("One Piece")
                 .author("Eichiro Oda")
                 .description("A pirate adventure")
-                .totalVolumes(100)
+                .totalVolumes(100.0)
                 .build();
 
         when(mangaRepository.findById(1L)).thenReturn(Optional.of(entity));
