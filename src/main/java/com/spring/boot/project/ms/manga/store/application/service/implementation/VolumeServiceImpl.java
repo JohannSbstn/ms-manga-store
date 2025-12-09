@@ -2,8 +2,8 @@ package com.spring.boot.project.ms.manga.store.application.service.implementatio
 
 import com.spring.boot.project.ms.manga.store.application.dto.request.VolumeRequestDto;
 import com.spring.boot.project.ms.manga.store.application.service.VolumeService;
-import com.spring.boot.project.ms.manga.store.domain.input.VolumePortIn;
 import com.spring.boot.project.ms.manga.store.domain.input.MangaPortIn;
+import com.spring.boot.project.ms.manga.store.domain.input.VolumePortIn;
 import com.spring.boot.project.ms.manga.store.domain.model.Manga;
 import com.spring.boot.project.ms.manga.store.domain.model.Volume;
 import lombok.RequiredArgsConstructor;
@@ -38,19 +38,8 @@ public class VolumeServiceImpl implements VolumeService {
     @Override
     public void switchVolumeStatus(String isbn) {
         Volume oldVolume = volumePortIn.getByIsbn(isbn);
-        Volume newVolume = Volume.builder()
-                .id(oldVolume.getId())
-                .isbn(oldVolume.getIsbn())
-                .volumeNumber(oldVolume.getVolumeNumber())
-                .title(oldVolume.getTitle())
-                .description(oldVolume.getDescription())
-                .price(oldVolume.getPrice())
-                .stock(oldVolume.getStock())
-                .publicationDate(oldVolume.getPublicationDate())
-                .pages(oldVolume.getPages())
-                .language(oldVolume.getLanguage())
-                .available(!oldVolume.getAvailable())
-                .manga(mangaPortIn.getById(oldVolume.getManga().getId()))
+        Volume newVolume = oldVolume.toBuilder()
+                .available(!oldVolume.available())
                 .build();
         volumePortIn.update(newVolume);
     }
