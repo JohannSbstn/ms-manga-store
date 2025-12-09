@@ -7,7 +7,7 @@ public record Manga(
         String title,
         String author,
         String description,
-        Double totalVolumes,
+        Integer totalVolumes,
         LocalDate startDate
 ) {
 
@@ -24,7 +24,7 @@ public record Manga(
         private String title;
         private String author;
         private String description;
-        private Double totalVolumes;
+        private Integer totalVolumes;
         private LocalDate startDate;
 
         public MangaBuilder id(Long id) {
@@ -47,7 +47,7 @@ public record Manga(
             return this;
         }
 
-        public MangaBuilder totalVolumes(Double totalVolumes) {
+        public MangaBuilder totalVolumes(Integer totalVolumes) {
             this.totalVolumes = totalVolumes;
             return this;
         }

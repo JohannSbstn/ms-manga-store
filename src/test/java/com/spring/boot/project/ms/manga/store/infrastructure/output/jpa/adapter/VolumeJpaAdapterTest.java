@@ -36,7 +36,7 @@ class VolumeJpaAdapterTest {
                 .title("Attack on Titan")
                 .author("Hajime Isayama")
                 .description("Titans")
-                .totalVolumes(34.0)
+                .totalVolumes(34)
                 .startDate(LocalDate.of(2009, 9, 9))
                 .build();
         Volume volume = Volume.builder()

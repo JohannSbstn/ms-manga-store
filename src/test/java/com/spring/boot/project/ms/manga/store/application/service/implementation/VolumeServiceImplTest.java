@@ -55,7 +55,7 @@ class VolumeServiceImplTest {
                 .title("Attack on Titan")
                 .author("Hajime Isayama")
                 .description("Humanity vs Titans")
-                .totalVolumes(34.0)
+                .totalVolumes(34)
                 .startDate(LocalDate.of(2009, 9, 9))
                 .build();
 
@@ -73,7 +73,7 @@ class VolumeServiceImplTest {
 
         assertNotNull(captured);
         assertEquals("978-1234567890", captured.isbn());
-        assertEquals(5, captured.volumeNumber());
+        assertEquals(5.0, captured.volumeNumber());
         assertEquals("Attack on Titan Vol. 5", captured.title());
         assertEquals("Eren faces new challenges...", captured.description());
         assertEquals(BigDecimal.valueOf(49.99), captured.price());
@@ -93,7 +93,7 @@ class VolumeServiceImplTest {
                 .title("One Piece")
                 .author("Oda")
                 .description("Pirates")
-                .totalVolumes(100.0)
+                .totalVolumes(100)
                 .startDate(LocalDate.of(1997, 7, 22))
                 .build();
 
@@ -124,13 +124,11 @@ class VolumeServiceImplTest {
 
         Volume updated = captor.getValue();
 
-        assertNotNull(updated);
         assertEquals(existing.id(), updated.id());
         assertEquals(existing.isbn(), updated.isbn());
-        assertFalse(updated.available()); // Estado invertido correctamente
+        assertFalse(updated.available());
         assertEquals(manga, updated.manga());
 
-        // Validar que no cambió ningún otro campo
         assertEquals(existing.volumeNumber(), updated.volumeNumber());
         assertEquals(existing.title(), updated.title());
         assertEquals(existing.description(), updated.description());

@@ -49,7 +49,7 @@ class VolumeUseCaseTest {
                 .title("Attack on Titan")
                 .author("Hajime Isayama")
                 .description("A manga about titans")
-                .totalVolumes(34.0)
+                .totalVolumes(34)
                 .startDate(LocalDate.of(2009, 9, 9))
                 .build();
 
@@ -131,7 +131,7 @@ class VolumeUseCaseTest {
                 .title("One Piece")
                 .author("Oda")
                 .description("Pirates")
-                .totalVolumes(100.0)
+                .totalVolumes(100)
                 .startDate(LocalDate.of(1997, 7, 22))
                 .build();
 
