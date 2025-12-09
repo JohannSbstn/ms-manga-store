@@ -48,7 +48,7 @@ class MangaControllerTest {
                 "Naruto",
                 "Masashi Kishimoto",
                 "A ninja who wants to become Hokage",
-                72.0,
+                72,
                 LocalDate.now()
         );
 

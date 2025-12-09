@@ -33,7 +33,7 @@ class MangaUseCaseTest {
                 .title("Naruto")
                 .author("Masashi Kishimoto")
                 .description("Ninja story")
-                .totalVolumes(72.0)
+                .totalVolumes(72)
                 .build();
 
         when(mangaPortOut.getById(10L)).thenReturn(manga);

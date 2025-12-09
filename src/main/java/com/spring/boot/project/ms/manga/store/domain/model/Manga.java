@@ -7,7 +7,7 @@ public record Manga(
         String title,
         String author,
         String description,
-        Double totalVolumes,
+        Integer totalVolumes,
         LocalDate startDate
 ) {
 

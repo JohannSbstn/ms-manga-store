@@ -9,7 +9,7 @@ public record MangaResponseDto(
 
         String description,
 
-        Double totalVolumes,
+        Integer totalVolumes,
 
         LocalDate startDate
 ) {
