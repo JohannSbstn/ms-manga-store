@@ -49,7 +49,7 @@ class VolumeUseCaseTest {
                 .title("Attack on Titan")
                 .author("Hajime Isayama")
                 .description("A manga about titans")
-                .totalVolumes(34.0)
+                .totalVolumes(34)
                 .startDate(LocalDate.of(2009, 9, 9))
                 .build();
 
@@ -77,10 +77,10 @@ class VolumeUseCaseTest {
         verify(volumePortOut, times(1)).create(captor.capture());
         Volume captured = captor.getValue();
 
-        assertEquals(volume.getIsbn(), captured.getIsbn());
-        assertEquals(volume.getTitle(), captured.getTitle());
-        assertEquals(volume.getPrice(), captured.getPrice());
-        assertEquals(volume.getManga().getId(), captured.getManga().getId());
+        assertEquals(volume.isbn(), captured.isbn());
+        assertEquals(volume.title(), captured.title());
+        assertEquals(volume.price(), captured.price());
+        assertEquals(volume.manga().id(), captured.manga().id());
     }
 
     // --------------------------------------------------------------------
@@ -131,7 +131,7 @@ class VolumeUseCaseTest {
                 .title("One Piece")
                 .author("Oda")
                 .description("Pirates")
-                .totalVolumes(100.0)
+                .totalVolumes(100)
                 .startDate(LocalDate.of(1997, 7, 22))
                 .build();
 
@@ -158,10 +158,10 @@ class VolumeUseCaseTest {
 
         // Assert
         assertNotNull(result);
-        assertEquals(oldVolume.getId(), result.getId());
-        assertEquals(oldVolume.getIsbn(), result.getIsbn());
-        assertEquals(oldVolume.getAvailable(), result.getAvailable());
-        assertEquals(manga.getId(), result.getManga().getId());
+        assertEquals(oldVolume.id(), result.id());
+        assertEquals(oldVolume.isbn(), result.isbn());
+        assertEquals(oldVolume.available(), result.available());
+        assertEquals(manga.id(), result.manga().id());
 
         // Verify mocks
         verify(volumePortOut, times(1)).getByIsbn("999-1112223334");

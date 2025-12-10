@@ -55,7 +55,7 @@ class VolumeServiceImplTest {
                 .title("Attack on Titan")
                 .author("Hajime Isayama")
                 .description("Humanity vs Titans")
-                .totalVolumes(34.0)
+                .totalVolumes(34)
                 .startDate(LocalDate.of(2009, 9, 9))
                 .build();
 
@@ -72,17 +72,17 @@ class VolumeServiceImplTest {
         Volume captured = captor.getValue();
 
         assertNotNull(captured);
-        assertEquals("978-1234567890", captured.getIsbn());
-        assertEquals(5.0, captured.getVolumeNumber());
-        assertEquals("Attack on Titan Vol. 5", captured.getTitle());
-        assertEquals("Eren faces new challenges...", captured.getDescription());
-        assertEquals(BigDecimal.valueOf(49.99), captured.getPrice());
-        assertEquals(10, captured.getStock());
-        assertEquals(LocalDate.of(2022, 5, 20), captured.getPublicationDate());
-        assertEquals(200, captured.getPages());
-        assertEquals("EN", captured.getLanguage());
-        assertTrue(captured.getAvailable());
-        assertEquals(manga, captured.getManga());
+        assertEquals("978-1234567890", captured.isbn());
+        assertEquals(5.0, captured.volumeNumber());
+        assertEquals("Attack on Titan Vol. 5", captured.title());
+        assertEquals("Eren faces new challenges...", captured.description());
+        assertEquals(BigDecimal.valueOf(49.99), captured.price());
+        assertEquals(10, captured.stock());
+        assertEquals(LocalDate.of(2022, 5, 20), captured.publicationDate());
+        assertEquals(200, captured.pages());
+        assertEquals("EN", captured.language());
+        assertTrue(captured.available());
+        assertEquals(manga, captured.manga());
     }
 
     @Test
@@ -93,7 +93,7 @@ class VolumeServiceImplTest {
                 .title("One Piece")
                 .author("Oda")
                 .description("Pirates")
-                .totalVolumes(100.0)
+                .totalVolumes(100)
                 .startDate(LocalDate.of(1997, 7, 22))
                 .build();
 
@@ -124,19 +124,18 @@ class VolumeServiceImplTest {
 
         Volume updated = captor.getValue();
 
-        assertNotNull(updated);
-        assertEquals(existing.getId(), updated.getId());
-        assertEquals(existing.getIsbn(), updated.getIsbn());
-        assertFalse(updated.getAvailable());
-        assertEquals(manga, updated.getManga());
+        assertEquals(existing.id(), updated.id());
+        assertEquals(existing.isbn(), updated.isbn());
+        assertFalse(updated.available());
+        assertEquals(manga, updated.manga());
 
-        assertEquals(existing.getVolumeNumber(), updated.getVolumeNumber());
-        assertEquals(existing.getTitle(), updated.getTitle());
-        assertEquals(existing.getDescription(), updated.getDescription());
-        assertEquals(existing.getPrice(), updated.getPrice());
-        assertEquals(existing.getStock(), updated.getStock());
-        assertEquals(existing.getPublicationDate(), updated.getPublicationDate());
-        assertEquals(existing.getPages(), updated.getPages());
-        assertEquals(existing.getLanguage(), updated.getLanguage());
+        assertEquals(existing.volumeNumber(), updated.volumeNumber());
+        assertEquals(existing.title(), updated.title());
+        assertEquals(existing.description(), updated.description());
+        assertEquals(existing.price(), updated.price());
+        assertEquals(existing.stock(), updated.stock());
+        assertEquals(existing.publicationDate(), updated.publicationDate());
+        assertEquals(existing.pages(), updated.pages());
+        assertEquals(existing.language(), updated.language());
     }
 }
