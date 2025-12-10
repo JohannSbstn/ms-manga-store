@@ -12,7 +12,6 @@ import com.spring.boot.project.ms.manga.store.infrastructure.output.jpa.reposito
 import com.spring.boot.project.ms.manga.store.infrastructure.output.jpa.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 
-import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 

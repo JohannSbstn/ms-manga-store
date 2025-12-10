@@ -29,6 +29,7 @@ public class VolumeController {
                 .build();
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PatchMapping("/{isbn}")
     public ResponseEntity<HttpStatus> switchVolumeStatus(@PathVariable String isbn) {
         volumeService.switchVolumeStatus(isbn);
