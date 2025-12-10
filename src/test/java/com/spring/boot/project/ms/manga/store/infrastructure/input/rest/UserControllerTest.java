@@ -10,8 +10,10 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
 class UserControllerTest {
@@ -22,10 +24,8 @@ class UserControllerTest {
     @InjectMocks
     private UserController userController;
 
-    @Test
-    void createUser_ShouldReturnCreatedStatus() {
-        // Arrange
-        UserRequestDto userRequestDto = new UserRequestDto(
+    private UserRequestDto buildUserRequest() {
+        return new UserRequestDto(
                 "12345678",
                 "test@example.com",
                 "password123",
@@ -33,15 +33,27 @@ class UserControllerTest {
                 "John",
                 "Doe"
         );
+    }
 
-
+    @Test
+    void createUser_ShouldReturnCreatedStatusAndInvokeService() {
+        UserRequestDto userRequestDto = buildUserRequest();
         doNothing().when(userService).createUser(userRequestDto);
 
-        // Act
         ResponseEntity<HttpStatus> response = userController.createUser(userRequestDto);
 
-        // Assert
         assertEquals(HttpStatus.CREATED, response.getStatusCode());
         verify(userService, times(1)).createUser(userRequestDto);
+    }
+
+    @Test
+    void createAdmin_ShouldReturnCreatedStatusAndInvokeService() {
+        UserRequestDto userRequestDto = buildUserRequest();
+        doNothing().when(userService).createAdmin(userRequestDto);
+
+        ResponseEntity<HttpStatus> response = userController.createAdmin(userRequestDto);
+
+        assertEquals(HttpStatus.CREATED, response.getStatusCode());
+        verify(userService, times(1)).createAdmin(userRequestDto);
     }
 }

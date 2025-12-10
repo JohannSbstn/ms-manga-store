@@ -8,6 +8,7 @@ import com.spring.boot.project.ms.manga.store.domain.exception.VolumeAlreadyRegi
 import com.spring.boot.project.ms.manga.store.domain.exception.VolumeNotExistsException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authorization.AuthorizationDeniedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -60,8 +61,7 @@ public class GlobalRestControllerAdvice {
     }
 
     @ExceptionHandler(UserIdentityDocumentAlreadyExistsException.class)
-    public ResponseEntity<ErrorResponseDto> userIdentityDocumentAlreadyExists(
-            UserIdentityDocumentAlreadyExistsException ex) {
+    public ResponseEntity<ErrorResponseDto> userDniAlreadyExists(UserIdentityDocumentAlreadyExistsException ex) {
         ErrorResponseDto errorResponseDto = new ErrorResponseDto(
                 Integer.toString(HttpStatus.CONFLICT.value()),
                 LocalDateTime.now(),
@@ -84,7 +84,16 @@ public class GlobalRestControllerAdvice {
         return ResponseEntity.status(httpStatus.value()).body(errorResponseDto);
     }
 
-    public record ErrorResponseDto(String code, LocalDateTime timestamp, String description, String exception) {
+    @ExceptionHandler(AuthorizationDeniedException.class)
+    public ResponseEntity<ErrorResponseDto> authorizationDeniedException(AuthorizationDeniedException ex) {
+        HttpStatus httpStatus = HttpStatus.FORBIDDEN;
+        ErrorResponseDto errorResponseDto = new ErrorResponseDto(
+                Integer.toString(httpStatus.value()),
+                LocalDateTime.now(),
+                httpStatus.getReasonPhrase(),
+                ex.getMessage()
+        );
+        return ResponseEntity.status(httpStatus.value()).body(errorResponseDto);
     }
 
     @ExceptionHandler(VolumeAlreadyRegisteredException.class)
@@ -121,5 +130,8 @@ public class GlobalRestControllerAdvice {
                 ex.getClass().getSimpleName()
         );
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponseDto);
+    }
+
+    public record ErrorResponseDto(String code, LocalDateTime timestamp, String title, String message) {
     }
 }

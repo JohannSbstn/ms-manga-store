@@ -98,13 +98,28 @@ public record User(
         }
 
         public UserBuilder roles(EnumSet<Role> roles) {
-            this.roles = roles != null ? EnumSet.copyOf(roles) : null;
+            this.roles = (roles != null)
+                    ? EnumSet.copyOf(roles)
+                    : EnumSet.noneOf(Role.class);
             return this;
         }
 
         public User build() {
-            return new User(this.id, this.identityDocument, this.email, this.password, this.name,
-                    this.lastname, this.phone, this.address, this.isActive, this.roles);
+            EnumSet<Role> safeRoles = this.roles != null
+                    ? this.roles
+                    : EnumSet.noneOf(Role.class);
+
+            return new User(
+                    this.id,
+                    this.identityDocument,
+                    this.email, this.password,
+                    this.name,
+                    this.lastname,
+                    this.phone,
+                    this.address,
+                    this.isActive,
+                    safeRoles
+            );
         }
     }
 }

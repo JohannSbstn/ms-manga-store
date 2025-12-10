@@ -6,6 +6,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -20,6 +21,7 @@ public class VolumeController {
 
     private final VolumeService volumeService;
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping
     public ResponseEntity<HttpStatus> createVolume(@RequestBody @Valid VolumeRequestDto volumeRequestDto) {
         volumeService.create(volumeRequestDto);
@@ -27,6 +29,7 @@ public class VolumeController {
                 .build();
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PatchMapping("/{isbn}")
     public ResponseEntity<HttpStatus> switchVolumeStatus(@PathVariable String isbn) {
         volumeService.switchVolumeStatus(isbn);

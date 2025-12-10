@@ -4,6 +4,7 @@ package com.spring.boot.project.ms.manga.store.infrastructure.configuration;
 import com.spring.boot.project.ms.manga.store.domain.output.UserPortOut;
 import com.spring.boot.project.ms.manga.store.infrastructure.output.jpa.adapter.UserJpaAdapter;
 import com.spring.boot.project.ms.manga.store.infrastructure.output.jpa.mapper.UserEntityMapper;
+import com.spring.boot.project.ms.manga.store.infrastructure.output.jpa.repository.RoleRepository;
 import com.spring.boot.project.ms.manga.store.infrastructure.output.jpa.repository.UserRepository;
 import com.spring.boot.project.ms.manga.store.domain.output.MangaPortOut;
 import com.spring.boot.project.ms.manga.store.domain.output.VolumePortOut;
@@ -20,8 +21,9 @@ import org.springframework.context.annotation.Configuration;
 public class AdapterConfiguration {
 
     @Bean
-    public UserPortOut userPortOut(UserRepository userRepository, UserEntityMapper userEntityMapper) {
-        return new UserJpaAdapter(userRepository, userEntityMapper);
+    public UserPortOut userPortOut(UserRepository userRepository, RoleRepository roleRepository,
+                                   UserEntityMapper userEntityMapper) {
+        return new UserJpaAdapter(userRepository, roleRepository, userEntityMapper);
     }
 
     @Bean
