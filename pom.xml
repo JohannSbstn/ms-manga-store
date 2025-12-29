@@ -260,6 +260,10 @@
                 <configuration>
                     <failOnViolation>true</failOnViolation>
                     <linkXRef>false</linkXRef>
+                    <excludes>
+                        <exclude>**/target/generated-sources/**</exclude>
+                        <exclude>**/*MapperImpl.java</exclude>
+                    </excludes>
                 </configuration>
                 <executions>
                     <execution>

@@ -1,13 +1,16 @@
 package com.spring.boot.project.ms.manga.store.infrastructure.configuration;
 
+import com.spring.boot.project.ms.manga.store.domain.input.CartPortIn;
 import com.spring.boot.project.ms.manga.store.domain.input.MangaPortIn;
 import com.spring.boot.project.ms.manga.store.domain.input.UserPortIn;
+import com.spring.boot.project.ms.manga.store.domain.input.VolumePortIn;
+import com.spring.boot.project.ms.manga.store.domain.output.CartCachePortOut;
 import com.spring.boot.project.ms.manga.store.domain.output.MangaPortOut;
 import com.spring.boot.project.ms.manga.store.domain.output.UserPortOut;
+import com.spring.boot.project.ms.manga.store.domain.output.VolumePortOut;
+import com.spring.boot.project.ms.manga.store.domain.usecase.CartUseCase;
 import com.spring.boot.project.ms.manga.store.domain.usecase.MangaUseCase;
 import com.spring.boot.project.ms.manga.store.domain.usecase.UserUseCase;
-import com.spring.boot.project.ms.manga.store.domain.input.VolumePortIn;
-import com.spring.boot.project.ms.manga.store.domain.output.VolumePortOut;
 import com.spring.boot.project.ms.manga.store.domain.usecase.VolumeUseCase;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -28,5 +31,10 @@ public class UseCaseConfiguration {
     @Bean
     public MangaPortIn mangaPortIn(MangaPortOut mangaPortOut) {
         return new MangaUseCase(mangaPortOut);
+    }
+
+    @Bean
+    public CartPortIn cartPortIn(CartCachePortOut cartCachePortOut) {
+        return new CartUseCase(cartCachePortOut);
     }
 }
